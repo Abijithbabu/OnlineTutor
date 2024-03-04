@@ -13,11 +13,11 @@ const ContinueWacting = () => {
       backgroundPosition: 'center',
       // width: 200, 
       // height: 200,
-      position: 'relative', // Add position relative to overlay gradient
+      position: 'relative', 
       borderRadius: 3,
       p: 5,
-      alignItems: 'center', // Center content vertically
-      justifyContent: 'center', // Center content horizontally
+      alignItems: 'center',
+      justifyContent: 'center',
     }} >
       <Typography pb={2}> ContinueWacting </Typography>
       <Typography pb={6} variant='h4'> mathematics formula </Typography>

@@ -1,12 +1,11 @@
-// App.js
 import React, { useMemo, useState } from 'react';
 import { Container, CssBaseline, ThemeProvider } from '@mui/material';
 import ThemeButton from './components/themeButton';
 import Theme from './theme/theme';
 import Navbar from './components/navBar';
+import Home from './pages/home.jsx';
 import { motion } from 'framer-motion';
 import Auth from './components/login';
-import Home from './pages/home';
 import Cards from './components/card';
 
 const ColorModeContext = React.createContext();
