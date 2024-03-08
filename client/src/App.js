@@ -1,29 +1,28 @@
-import React, { useMemo, useState } from 'react';
-import { Container, CssBaseline, ThemeProvider } from '@mui/material';
-import ThemeButton from './components/themeButton';
+// App.js
+import React, { useEffect, useMemo, useState } from 'react';
+import { CssBaseline, ThemeProvider } from '@mui/material';
 import Theme from './theme/theme';
-import Navbar from './components/navBar';
-import Home from './pages/home.jsx';
 import { motion } from 'framer-motion';
-import Auth from './components/login';
-import Cards from './components/card';
+import { HashRouter } from 'react-router-dom';
+import { useDispatch } from "react-redux";
+import Routes from './routes/Routes';
 
-const ColorModeContext = React.createContext();
+export const ColorModeContext = React.createContext();
 
 const App = () => {
   const [mode, setMode] = useState('dark');
   const colorMode = useMemo(() => Theme({ mode, setMode }), [mode]);
-
+  const dispatch = useDispatch({ type: 'mode', payload: colorMode })
+  useEffect(() => {
+    dispatch({ type: 'mode', payload: colorMode })
+  }, [colorMode])
   return (
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={colorMode.theme}>
         <motion.div initial={{ opacity: 0, y: -50 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1 }}>
-          <Container>
-          <Navbar onToggleColorMode={colorMode.toggleColorMode} onTheme={colorMode.theme} />
-          <Home/>
-          <Auth />
-          <Cards/>
-          </Container>
+          <HashRouter>
+            <Routes />
+          </HashRouter>
         </motion.div>
         <CssBaseline />
       </ThemeProvider>
