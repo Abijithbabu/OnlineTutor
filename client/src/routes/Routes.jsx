@@ -1,26 +1,31 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
-import Login from '../pages/login'
-import Register from '../pages/register'
-import Home from '../pages/home'
-import Layout from '../layout/layout'
+import Login from '../pages/Login'
+import Register from '../pages/Register'
 import Live from '../pages/Live'
+import AuthRoutes from './AuthProtected'
+import UserPrivateRoute from './UserProtected'
+import Dashboard from '../pages/Dashboard'
+import Home from '../pages/Home'
 
 
 const Router = () => {
   return (
     <Routes>
-      <Route element={<Layout />}>
+      <Route element={<AuthRoutes />}>
         <Route path="/" element={<Home />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/courses" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+      </Route>
+      <Route element={<UserPrivateRoute />}>
         <Route path="/live" element={<Live />} />
       </Route>
-      {/* <Route element={<AuthLayout />}> */}
-      <Route path="/login" element={<Login />} />
-      <Route path="/register" element={<Register />} />
-      {/* </Route> */}
-
+      <Route element={<UserPrivateRoute user={'Student'} />}>
+        <Route path="/courses" element={<Home />} />
+      </Route>
+      <Route path="/dashboard" element={<Dashboard />} />
+      <Route element={<UserPrivateRoute user={'Tutor'} />}>
+      </Route>
     </Routes>
   )
 }

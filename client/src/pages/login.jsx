@@ -14,13 +14,11 @@ import {
 } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { useEffect } from "react";
+import { login } from "../utils/api";
 
 const Login = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const GOOGLE_CLIENT_ID =
-    "57619033321-n0pnjp17n9up4tj5bil84lvlddtuarcn.apps.googleusercontent.com";
   const [method, setMethod] = useState("email");
   const formik = useFormik({
     initialValues: {
@@ -37,9 +35,10 @@ const Login = () => {
     }),
     onSubmit: async (values, helpers) => {
       try {
-        const auth = await Login(values);
+        const auth = await login(values);
+        console.log(auth?.user?.type );
         auth &&
-          dispatch({ type: "user_login", payload: auth }).then(navigate("/"));
+          dispatch({ type: "user_login", payload: auth }) && navigate("/dashboard")
       } catch (err) {
         helpers.setStatus({ success: false });
         helpers.setErrors({ submit: err.message });
@@ -80,7 +79,7 @@ const Login = () => {
               </Link>
             </Typography>
           </Stack>
-          <Tabs onChange={()=>{}} sx={{ mb: 3 }} value={method}>
+          <Tabs onChange={() => { }} sx={{ mb: 3 }} value={method}>
             <Tab label="Email" value="email" />
             <Tab label="Phone Number" value="phoneNumber" />
           </Tabs>

@@ -2,23 +2,28 @@ import { Box, Typography, useTheme } from '@mui/material'
 import React from 'react'
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import IconButton from '@mui/material/IconButton';
+import { useNavigate } from 'react-router-dom';
 
 const ContinueWacting = () => {
+  const navigate = useNavigate()
   const backgroundImg = 'https://www.slu.edu/give/-img/cammy-fuller.jpg'
   const theme = useTheme();
   return (
-    <Box sx={{
-      backgroundImage: `linear-gradient(to left, transparent, ${theme.palette.secondary.main}), url(${backgroundImg})`,
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
-      // width: 200, 
-      // height: 200,
-      position: 'relative', 
-      borderRadius: 3,
-      p: 5,
-      alignItems: 'center',
-      justifyContent: 'center',
-    }} >
+    <Box
+      onClick={()=>navigate('/live')}
+      sx={{
+        backgroundImage: `linear-gradient(to left, transparent, ${theme.palette.secondary.main}), url(${backgroundImg})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        // width: 200, 
+        // height: 200,
+        position: 'relative',
+
+        borderRadius: 3,
+        p: 5,
+        alignItems: 'center',
+        justifyContent: 'center',
+      }} >
       <Typography pb={2}> ContinueWacting </Typography>
       <Typography pb={6} variant='h4'> mathematics formula </Typography>
       <IconButton aria-label="play/pause" sx={{ bgcolor: "primary.main", }}>
@@ -28,7 +33,7 @@ const ContinueWacting = () => {
         Lizards are a widespread group of squamate reptiles, with over 6,000<br />
         species, ranging across all continents except Antarctica
       </Typography>
-    </Box>
+    </Box >
   )
 }
 

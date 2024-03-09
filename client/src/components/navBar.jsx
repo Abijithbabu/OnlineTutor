@@ -6,15 +6,27 @@ import AdbIcon from '@mui/icons-material/Adb';
 import MenuItem from '@mui/material/MenuItem';
 import MenuIcon from '@mui/icons-material/Menu';
 import ThemeButton from './themeButton';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { signOut } from '../utils/api';
 
 
-const pages = ['Course', 'Cart',];
-const settings = ['Profile', 'Account', , 'Logout'];
 
 const Navbar = ({ onToggleColorMode, onTheme }) => {
-
+    
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
+    const data = useSelector(store => store?.data)
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
+    const pages = [
+        { name: 'Home', path: '/' },
+        { name: 'Courses', path: '/courses' },
+    ];
+    const settings = [
+        { name: 'Profile', onClick: ()=>navigate('/profile') },
+        { name: 'Logout', onClick: ()=>signOut(dispatch) },
+    ];
 
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
@@ -30,7 +42,6 @@ const Navbar = ({ onToggleColorMode, onTheme }) => {
     const handleCloseUserMenu = () => {
         setAnchorElUser(null);
     };
-
     return (
 
         <AppBar component={motion.div} initial={{ scale: -1 }} transition={{
@@ -89,9 +100,9 @@ const Navbar = ({ onToggleColorMode, onTheme }) => {
                                 display: { xs: 'block', md: 'none' },
                             }}
                         >
-                            {pages.map((page) => (
-                                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                                    <Typography textAlign="center">{page}</Typography>
+                            {pages.map((x) => (
+                                <MenuItem key={x.name} onClick={() => navigate(x.path)}>
+                                    <Typography textAlign="center">{x.name}</Typography>
                                 </MenuItem>
                             ))}
                         </Menu>
@@ -118,44 +129,48 @@ const Navbar = ({ onToggleColorMode, onTheme }) => {
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                         {pages.map((page) => (
                             <Button
-                                key={page}
-                                onClick={handleCloseNavMenu}
+                                key={page.name}
+                                onClick={() => navigate(page.path)}
                                 sx={{ my: 2, color: 'white', display: 'block' }}
                             >
-                                {page}
+                                {page.name}
                             </Button>
                         ))}
                     </Box>
                     <ThemeButton toggleColorMode={onToggleColorMode} theme={onTheme} />
 
                     <Box sx={{ flexGrow: 0 }}>
-                        <Tooltip title="Open settings">
-                            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-                            </IconButton>
-                        </Tooltip>
-                        <Menu
-                            sx={{ mt: '45px' }}
-                            id="menu-appbar"
-                            anchorEl={anchorElUser}
-                            anchorOrigin={{
-                                vertical: 'top',
-                                horizontal: 'right',
-                            }}
-                            keepMounted
-                            transformOrigin={{
-                                vertical: 'top',
-                                horizontal: 'right',
-                            }}
-                            open={Boolean(anchorElUser)}
-                            onClose={handleCloseUserMenu}
-                        >
-                            {settings.map((setting) => (
-                                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                                    <Typography textAlign="center">{setting}</Typography>
-                                </MenuItem>
-                            ))}
-                        </Menu>
+                        {data?.isAuthenticated ?
+                            <>
+                                <Tooltip title="Open settings">
+                                    <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                                        <Avatar alt={data?.user?.name} src="/static/images/avatar/2.jpg" />
+                                    </IconButton>
+                                </Tooltip>
+                                <Menu
+                                    sx={{ mt: '45px' }}
+                                    id="menu-appbar"
+                                    anchorEl={anchorElUser}
+                                    anchorOrigin={{
+                                        vertical: 'top',
+                                        horizontal: 'right',
+                                    }}
+                                    keepMounted
+                                    transformOrigin={{
+                                        vertical: 'top',
+                                        horizontal: 'right',
+                                    }}
+                                    open={Boolean(anchorElUser)}
+                                    onClose={handleCloseUserMenu}
+                                >
+                                    {settings.map((x) => (
+                                        <MenuItem key={x.name} onClick={() =>x.onClick()}>
+                                            <Typography textAlign="center">{x.name}</Typography>
+                                        </MenuItem>
+                                    ))}
+                                </Menu>
+                            </>
+                            : <Button onClick={()=>navigate('/login')}>Login</Button>}
                     </Box>
                 </Toolbar>
             </Container>

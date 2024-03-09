@@ -7,7 +7,7 @@ const ThemeButton = ({ toggleColorMode, theme }) => {
   return (
     <div>
       <Button onClick={toggleColorMode}>
-        {theme.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
+        {theme?.palette.mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
       </Button>
     </div>
   );

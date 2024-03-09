@@ -4,6 +4,7 @@ import { Alert, Box, Button, Stack, Tab, Tabs, TextField, Typography } from '@mu
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useRef, useState } from 'react';
+import { signUp } from '../utils/api';
 
 const Register = () => {
   const dispatch = useDispatch()
@@ -11,7 +12,7 @@ const Register = () => {
   const [timer, setTimer] = useState(60)
   const [verify, setVerify] = useState(false)
   const [message, setMessage] = useState('')
-  const [user, setUser] = useState({ type: 'user' });
+  const [user, setUser] = useState({ type: 'Student' });
   const [code, setCode] = useState([]);
 
   const formik = useFormik({
@@ -87,7 +88,7 @@ const Register = () => {
     const value = code[0] + code[1] + code[2] + code[3]
     if (parseInt(value) === verify) {
       setMessage('')
-    //   await signUp(user, dispatch) && navigate('/')
+      await signUp(user, dispatch) && navigate(user?.type === "user" ? "/" : "/dashboard")
     } else if (value.length !== 4) {
       setMessage('Please enter 4-digits')
     } else {
@@ -150,11 +151,11 @@ const Register = () => {
             >
               <Tab
                 label="STUDENT"
-                value="user"
+                value="Student"
               />
               <Tab
                 label="Teacher"
-                value="recruiter"
+                value="Tutor"
               />
             </Tabs>
             <form

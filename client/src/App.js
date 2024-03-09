@@ -4,13 +4,13 @@ import { CssBaseline, ThemeProvider } from '@mui/material';
 import Theme from './theme/theme';
 import { motion } from 'framer-motion';
 import { HashRouter } from 'react-router-dom';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Routes from './routes/Routes';
 
 export const ColorModeContext = React.createContext();
 
 const App = () => {
-  const [mode, setMode] = useState('dark');
+  const [mode, setMode] = useState(useSelector(store => store?.mode?.theme?.palette?.mode) ?? 'dark');
   const colorMode = useMemo(() => Theme({ mode, setMode }), [mode]);
   const dispatch = useDispatch({ type: 'mode', payload: colorMode })
   useEffect(() => {

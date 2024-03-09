@@ -4,10 +4,11 @@ import React from 'react'
 import ContinueWacting from '../components/continueWatching'
 import { EasyAssests } from '../layout/assests'
 import AutoPlay from '../layout/purchased'
-import Layout from '../layout/layout'
+import Layout from '../layout/Layout'
 
 const Home = () => {
     return (
+        <Layout>
         <Grid container spacing={2} >
             <Grid item xs={8}>
                 <Paper sx={{ mt: 2, borderRadius: 3 }} ><ContinueWacting /></Paper>
@@ -21,8 +22,8 @@ const Home = () => {
             <Grid item xs={8}>
                 <Box sx={{ bgcolor: "primary.main", mt: 2 }}>xs=8</Box>
             </Grid>
-
         </Grid>
+        </Layout>
     )
 }
 
