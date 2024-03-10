@@ -22,22 +22,32 @@ const courseSchema = new Schema({
         type: String,
         default: "English",
     },
+    subject: {
+        type: String,
+        required: true,
+    },
     description: {
         type: String,
         required: true,
     },
+    duration: {
+        type: String,
+        required: true,
+    },
+    availableDays: {
+        type: [Number],
+        required: true 
+      },
     time: {
         type: Array,
     },
-    subscription: {
-        type: {
-            type: String,
-            enum: ["Free", "Paid"],
-            default: "Free",
-        },
-        amount: {
-            type: Number
-        }
+    subscription_type: {
+        type: String,
+        enum: ["Free", "Paid"],
+        default: "Free",
+    },
+    amount: {
+        type: Number 
     },
     subscribers: [
         {

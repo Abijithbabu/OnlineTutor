@@ -3,6 +3,8 @@ const mongoose = require('mongoose')
 const dotenv = require('dotenv')
 const socket = require("socket.io");
 const authRouter = require('./routes/authRoutes')
+const tutorRouter = require('./routes/tutorRoutes')
+const userRouter = require('./routes/userRoutes')
 const cookieParser = require('cookie-parser')
 const path = require('path')
 const cors = require('cors')
@@ -19,6 +21,8 @@ app.use(express.static(path.join(__dirname, ('./public'))))
 app.use(express.urlencoded({ extended: false }))
 
 app.use('/auth', authRouter)
+app.use('/user', userRouter)
+app.use('/tutor', tutorRouter)
 
 mongoose.connect(process.env.MONGODB_URL, {
   useNewUrlParser: true,
@@ -27,3 +31,6 @@ mongoose.connect(process.env.MONGODB_URL, {
   console.log("DB Connetion Successfull")
 }).catch((err) => console.log(err))
 
+const server = app.listen(process.env.PORT, () =>
+  console.log(`Server started on ${process.env.PORT}`)
+);
