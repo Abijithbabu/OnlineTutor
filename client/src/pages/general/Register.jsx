@@ -4,7 +4,7 @@ import { Alert, Box, Button, Stack, Tab, Tabs, TextField, Typography } from '@mu
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useRef, useState } from 'react';
-import { signUp } from '../utils/api';
+import { signUp } from '../../utils/api';
 
 const Register = () => {
   const dispatch = useDispatch()

@@ -1,10 +1,10 @@
 import { Box, Paper, Stack } from '@mui/material'
 import { Grid } from '@mui/material'
 import React from 'react'
-import ContinueWacting from '../components/continueWatching'
-import { EasyAssests } from '../layout/assests'
-import AutoPlay from '../layout/purchased'
-import Layout from '../layout/Layout'
+import ContinueWacting from '../../components/continueWatching'
+import { EasyAssests } from '../../layout/assests'
+import AutoPlay from '../../layout/purchased'
+import Layout from '../../layout/Layout'
 
 const Home = () => {
     return (

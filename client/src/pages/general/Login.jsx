@@ -14,7 +14,7 @@ import {
 } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { login } from "../utils/api";
+import { login } from "../../utils/api";
 
 const Login = () => {
   const dispatch = useDispatch()

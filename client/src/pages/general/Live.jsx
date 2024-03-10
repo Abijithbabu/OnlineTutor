@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { ZegoUIKitPrebuilt } from '@zegocloud/zego-uikit-prebuilt';
-import { courseDetails } from '../utils/api';
+import { courseDetails } from '../../utils/api';
 import { useSelector } from 'react-redux';
-import ResponsiveDialog from '../components/general/live/Dialog';
+import ResponsiveDialog from '../../components/general/live/Dialog';
 
 export function getUrlParams(
   url = window.location.href
