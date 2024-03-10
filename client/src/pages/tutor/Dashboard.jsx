@@ -1,7 +1,7 @@
 import React from 'react'
-import TutorLayout from '../layout/TutorLayout'
+import TutorLayout from '../../layout/TutorLayout'
 import { Box, Container, Stack, Typography } from '@mui/material'
-import { ApexChart } from '../components/tutor/dashboard/ApexChart'
+import { ApexChart } from '../../components/tutor/dashboard/ApexChart'
 
 const Dashboard = () => {
 const data = []

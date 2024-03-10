@@ -28,13 +28,13 @@ const AppBar = styled(MuiAppBar, {
     }),
 }));
 
-const Navbar = ({ onTheme, onToggleColorMode,open,setOpen }) => {
+const Navbar = ({ onTheme, onToggleColorMode, open, setOpen }) => {
     const user = useSelector(store => store?.data?.user)
     const [anchorElUser, setAnchorElUser] = React.useState(null);
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const pathname = useLocation().pathname;
-    
+
     const settings = [
         { name: 'Profile', onClick: () => navigate('/profile') },
         { name: 'Logout', onClick: () => signOut(dispatch) },
@@ -83,11 +83,13 @@ const Navbar = ({ onTheme, onToggleColorMode,open,setOpen }) => {
                 >
                     TUTOR
                 </Typography>
-                <DoubleArrow/>&nbsp;&nbsp;
+                <DoubleArrow />&nbsp;&nbsp;
                 <Typography fontWeight={700}>{pathname?.charAt(1).toUpperCase() + pathname?.slice(2)}</Typography>
 
 
-                {/* <Box sx={{ flexGrow: 0 }}>
+                <Box sx={{ flexGrow: 0 }} marginLeft={'auto'} display={'flex'} flexDirection={'row'} alignItems={'center'}>
+                    <Typography fontWeight={600}>{user?.name?.charAt(0).toUpperCase() + user?.name?.slice(1)}</Typography>
+                    &nbsp;&nbsp;
                     <Tooltip title="Open settings">
                         <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                             <Avatar alt={user?.name} src="/static/images/avatar/2.jpg" />
@@ -114,12 +116,12 @@ const Navbar = ({ onTheme, onToggleColorMode,open,setOpen }) => {
                                 <Typography textAlign="center">{x.name}</Typography>
                             </MenuItem>
                         ))}
-                            <MenuItem>
+                        <MenuItem>
                             <ThemeButton toggleColorMode={onToggleColorMode} theme={onTheme} /> Theme
-                            </MenuItem>
+                        </MenuItem>
                     </Menu>
 
-                </Box> */}
+                </Box>
             </Toolbar>
         </AppBar>
     )

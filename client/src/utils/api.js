@@ -33,3 +33,19 @@ export const signOut = errorHandler((dispatch) => {
   });
   return axios.post(`/auth/logout`);
 })
+
+
+// Tutor Api's
+
+export const createCourse = errorHandler((data) => axios.post(`/tutor/createCourse`, data))
+
+export const editCourse = errorHandler((data) => axios.post(`/tutor/editCourse`, data))
+
+export const fetchCourses = errorHandler((id) => axios.get(`/tutor/fetchCourses?id=${id}`))
+
+export const courseDetails = errorHandler((id) => axios.get(`/tutor/courseDetails?id=${id}`))
+
+
+// User Api's
+
+export const subscribe = errorHandler((data) => axios.post(`/user/subscribe`, data))

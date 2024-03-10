@@ -1,8 +1,7 @@
 
-import CoPresentRoundedIcon from '@mui/icons-material/CoPresentRounded';
 import { SvgIcon } from '@mui/material';
 import FeaturedPlayListSharpIcon from '@mui/icons-material/FeaturedPlayListSharp';
-import { AccountCircle, Chat, Dashboard, Logout } from '@mui/icons-material';
+import { CoPresentRounded, Dashboard, LiveTv, Logout, School } from '@mui/icons-material';
 export const NavItems = [
      {
     title: 'Dashboard',
@@ -14,11 +13,11 @@ export const NavItems = [
     )
   },
   {
-    title: 'Applications',
-    path: '/manageApplications',
+    title: 'Courses',
+    path: '/myCourses',
     icon: (
       <SvgIcon fontSize="small">
-        <CoPresentRoundedIcon />
+        <School />
       </SvgIcon>
     )
   },
@@ -27,22 +26,22 @@ export const NavItems = [
     path: '/manageApplicants',
     icon: (
       <SvgIcon fontSize="small">
-        <AccountCircle />
+        <CoPresentRounded />
       </SvgIcon>
     )
   },
   {
-    title: 'Manage Contents',
-    path: '/manageContents',
+    title: 'Live Classes',
+    path: '/liveClasses',
     icon: (
       <SvgIcon fontSize="small">
-        <FeaturedPlayListSharpIcon />
+        <LiveTv />
       </SvgIcon>
     )
   },
   {
-    title: 'Account',
-    path: '/admin/account',
+    title: 'Logout',
+    path: '/',
     icon: (
       <SvgIcon fontSize="small">
         <Logout />

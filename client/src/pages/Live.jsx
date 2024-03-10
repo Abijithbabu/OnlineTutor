@@ -1,18 +1,8 @@
 import * as React from 'react';
 import { ZegoUIKitPrebuilt } from '@zegocloud/zego-uikit-prebuilt';
-
-function randomID(len) {
-  let result = '';
-  if (result) return result;
-  var chars = '12345qwertyuiopasdfgh67890jklmnbvcxzMNBVCZXASDQWERTYHGFUIOLKJP',
-    maxPos = chars.length,
-    i;
-  len = len || 5;
-  for (i = 0; i < len; i++) {
-    result += chars.charAt(Math.floor(Math.random() * maxPos));
-  }
-  return result;
-}
+import { courseDetails } from '../utils/api';
+import { useSelector } from 'react-redux';
+import ResponsiveDialog from '../components/general/live/Dialog';
 
 export function getUrlParams(
   url = window.location.href
@@ -22,57 +12,51 @@ export function getUrlParams(
 }
 
 export default function Live() {
-  const roomID = getUrlParams().get('roomID') || randomID(5);
-  let role_str = getUrlParams(window.location.href).get('role') || 'Host';
+
+  const user = useSelector(state => state?.data?.user)
+  const [course, setCourse] = React.useState()
+  const roomID = getUrlParams().get('roomID')
+
+  const fetchData = async () => await courseDetails(roomID).then(res => setCourse(res))
+
+  React.useEffect(() => {
+    roomID && fetchData()
+  }, [roomID])
+
   const role =
-    role_str === 'Host'
+    user?._id === course?.author
       ? ZegoUIKitPrebuilt.Host
-      : role_str === 'Cohost'
-      ? ZegoUIKitPrebuilt.Cohost
-      : ZegoUIKitPrebuilt.Audience;
+      : course?.subscribers?.includes(user?._id)
+        ? ZegoUIKitPrebuilt.Audience
+        : null;
 
-  let sharedLinks = [];
-  if (role === ZegoUIKitPrebuilt.Host || role === ZegoUIKitPrebuilt.Cohost) {
-    sharedLinks.push({
-      name: 'Join as co-host',
-      url:
-        window.location.protocol + '//' + 
-        window.location.host + window.location.pathname +
-        '?roomID=' +
-        roomID +
-        '&role=Cohost',
-    });
+  if (!role) {
+    return <ResponsiveDialog id={roomID}/>
   }
-  sharedLinks.push({
-    name: 'Join as audience',
-    url:
-     window.location.protocol + '//' + 
-     window.location.host + '/#/live/' +
-      '?roomID=' +
-      roomID +
-      '&role=Audience',
-  });
- // generate Kit Token
-  const appID = 729051051;
-  const serverSecret = "5add79df40894746cf3257909c6a587a";
-  const kitToken =  ZegoUIKitPrebuilt.generateKitTokenForTest(appID, serverSecret, roomID,  randomID(5),  randomID(5));
 
+  let sharedLinks = [{
+    name: 'Share Joining link',
+    url: window.location.protocol + '//' + window.location.host + '/#/live/' + '?roomID=' + roomID
+  }];
+
+  // generate Kit Token
+  const appID = process.env.REACT_APP_APPID
+  const serverSecret = process.env.REACT_APP_SERVER_SECRET
+  const kitToken = ZegoUIKitPrebuilt.generateKitTokenForTest(appID, serverSecret, roomID, user?._id, user?.name);
 
   // start the call
   let myMeeting = async (element) => {
-      // Create instance object from Kit Token.
-      const zp = ZegoUIKitPrebuilt.create(kitToken);
-      // start the call
-      zp.joinRoom({
-        container: element,
-        scenario: {
-          mode: ZegoUIKitPrebuilt.LiveStreaming,
-          config: {
-            role,
-          },
+    const zp = ZegoUIKitPrebuilt.create(kitToken);
+    zp?.joinRoom({
+      container: element,
+      scenario: {
+        mode: ZegoUIKitPrebuilt.LiveStreaming,
+        config: {
+          role,
         },
-        sharedLinks,
-      });
+      },
+      sharedLinks,
+    });
   };
 
   return (

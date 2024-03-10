@@ -83,7 +83,7 @@ export function ApexChart({data}) {
       }
     },
     title: {
-      text: 'casting calls published this year, 2023',
+      text: 'courses published this year, 2023',
       floating: true,
       offsetY: 330,
       align: 'center',

@@ -10,10 +10,10 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { NavItems } from './NavItems';
+import { signOut } from '../../../utils/api';
+import { useDispatch } from 'react-redux';
 
 const drawerWidth = 240;
 
@@ -66,7 +66,8 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 const CustomDrawer = ({ open, setOpen }) => {
     const theme = useTheme();
     const pathname = useLocation().pathname;
-
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
     const handleDrawerClose = () => {
         setOpen(false);
     };
@@ -80,7 +81,7 @@ const CustomDrawer = ({ open, setOpen }) => {
             <Divider />
             <List>
                 {NavItems.map((item) => (
-                    <ListItem key={item.title} disablePadding
+                    <ListItem key={item.title} disablePadding onClick={() => item.path === '/' ? signOut(dispatch) : navigate(item.path)}
                         sx={{
                             display: "block",
                             ...(item.path === pathname && {

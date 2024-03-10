@@ -17,7 +17,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 export default function TutorLayout({ children }) {
 
     const colorMode = useSelector(state => state?.mode)
-    const [open, setOpen] = React.useState(true);
+    const [open, setOpen] = React.useState(false);
     return (
         <Box sx={{ display: 'flex' }}>
             <CssBaseline />
