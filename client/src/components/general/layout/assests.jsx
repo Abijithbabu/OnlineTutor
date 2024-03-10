@@ -1,7 +1,7 @@
 import * as React from "react";
 import { motion } from "framer-motion";
 import { Grid, Paper } from "@mui/material";
-import AssestCard from "../components/assestCard";
+import AssestCard from "./assestCard";
 
 const data = [
     {

@@ -1,5 +1,5 @@
 import React from 'react'
-import TutorLayout from '../../layout/TutorLayout'
+import TutorLayout from '../../layouts/TutorLayout'
 import { Box, Container, Stack, Typography } from '@mui/material'
 import { ApexChart } from '../../components/tutor/dashboard/ApexChart'
 

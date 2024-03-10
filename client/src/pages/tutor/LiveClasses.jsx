@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import TutorLayout from '../../layout/TutorLayout';
+import TutorLayout from '../../layouts/TutorLayout';
 import { useSelector } from 'react-redux';
 import { fetchCourses } from '../../utils/api';
 import { Button, Card, CardActions, CardContent, CardMedia, Grid, IconButton, Stack, Tooltip, Typography, styled } from '@mui/material';

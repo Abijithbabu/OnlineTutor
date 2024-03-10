@@ -4,7 +4,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { Box, useMediaQuery } from "@mui/material";
 import { useTheme } from "@emotion/react";
-import SubCard from "../components/subCard";
+import SubCard from "./subCard";
 
 const data = [
     {

@@ -8,12 +8,12 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ThemeButton from './themeButton';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { signOut } from '../utils/api';
+import { signOut } from '../../../utils/api';
 
 
 
 const Navbar = ({ onToggleColorMode, onTheme }) => {
-    
+
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const data = useSelector(store => store?.data)
@@ -24,8 +24,8 @@ const Navbar = ({ onToggleColorMode, onTheme }) => {
         { name: 'Courses', path: '/courses' },
     ];
     const settings = [
-        { name: 'Profile', onClick: ()=>navigate('/profile') },
-        { name: 'Logout', onClick: ()=>signOut(dispatch) },
+        { name: 'Profile', onClick: () => navigate('/profile') },
+        { name: 'Logout', onClick: () => signOut(dispatch) },
     ];
 
     const handleOpenNavMenu = (event) => {
@@ -164,13 +164,13 @@ const Navbar = ({ onToggleColorMode, onTheme }) => {
                                     onClose={handleCloseUserMenu}
                                 >
                                     {settings.map((x) => (
-                                        <MenuItem key={x.name} onClick={() =>x.onClick()}>
+                                        <MenuItem key={x.name} onClick={() => x.onClick()}>
                                             <Typography textAlign="center">{x.name}</Typography>
                                         </MenuItem>
                                     ))}
                                 </Menu>
                             </>
-                            : <Button onClick={()=>navigate('/login')}>Login</Button>}
+                            : <Button onClick={() => navigate('/login')}>Login</Button>}
                     </Box>
                 </Toolbar>
             </Container>

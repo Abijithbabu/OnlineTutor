@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux';
-import Navbar from '../components/navBar'
+import Navbar from '../components/general/layout/navBar'
 
 const Layout = ({ children }) => {
    const colorMode = useSelector(state => state?.mode)

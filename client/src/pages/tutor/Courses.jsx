@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import TutorLayout from '../../layout/TutorLayout';
+import TutorLayout from '../../layouts/TutorLayout';
 import CourseList from '../../components/tutor/courses/CourseList';
 import CourseCreate from '../../components/tutor/courses/CourseEdit';
 import { useSelector } from 'react-redux';

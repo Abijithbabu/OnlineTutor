@@ -5,7 +5,7 @@ import { Avatar, Box, IconButton, Menu, MenuItem, Toolbar, Tooltip, Typography, 
 import MuiAppBar from '@mui/material/AppBar';
 
 import Adb from '@mui/icons-material/Adb';
-import ThemeButton from '../../themeButton';
+import ThemeButton from '../../general/layout/themeButton';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Apps, DoubleArrow } from '@mui/icons-material';
 
