@@ -4,7 +4,8 @@ const initialState = {
     isAuthenticated: false,
     user: null,
   },
-  mode:null
+  mode: null,
+  live: null
 }
 
 export function Reducer(state = initialState, { type, payload }) {
@@ -27,6 +28,11 @@ export function Reducer(state = initialState, { type, payload }) {
       return {
         ...state,
         mode: payload
+      };
+    case 'live':
+      return {
+        ...state,
+        live: payload
       };
 
     default:

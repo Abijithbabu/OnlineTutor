@@ -51,13 +51,13 @@ const LiveClasses = () => {
                 </CardContent>
                 <CardActions>
                   <Tooltip placement="top" title="Share">
-                    <IconButton onClick={() => handleWhatsAppShare(`${process.env.REACT_APP_URL}/#/live?roomID=${item._id}`)}>
+                    <IconButton onClick={() => handleWhatsAppShare(`${process.env.REACT_APP_URL}/#/live/${item._id}`)}>
                       <Share />
                     </IconButton>
                   </Tooltip>
                   <Tooltip placement="top" title="Copy link">
                     <IconButton
-                      onClick={() => { navigator.clipboard.writeText(`${process.env.REACT_APP_URL}/#/live?roomID=${item._id}`) }}
+                      onClick={() => { navigator.clipboard.writeText(`${process.env.REACT_APP_URL}/#/live/${item._id}`) }}
                     >
                       <CopyAll />
                     </IconButton>
@@ -69,7 +69,7 @@ const LiveClasses = () => {
                     size="small"
                     variant='contained'
                     minWidth={40}
-                    onClick={() => navigate(`${process.env.REACT_APP_URL}/#/live?roomID=${item._id}`)}
+                    onClick={() => window.open(`${process.env.REACT_APP_URL}/#/live/${item._id}`, '_blank')}
                   >
                     Start Live
                   </Button>

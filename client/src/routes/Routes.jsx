@@ -11,6 +11,7 @@ import Courses from '../pages/tutor/Courses'
 import LiveClasses from '../pages/tutor/LiveClasses'
 import PublicProtected from './PublicProtected'
 import CourseDetails from '../pages/student/CourseDetails'
+import LiveMeeting from '../components/general/live/LiveMeeting'
 
 
 const Router = () => {
@@ -24,7 +25,8 @@ const Router = () => {
         <Route path="/register" element={<Register />} />
       </Route>
       <Route element={<UserPrivateRoute />}>
-        <Route path="/live" element={<Live />} />
+        <Route path="/live/:roomID" element={<Live />} />
+        <Route path="/joinlive" element={<LiveMeeting />} />
       </Route>
       <Route element={<UserPrivateRoute user={'Student'} />}>
         <Route path="/courses" element={<Home />} />
