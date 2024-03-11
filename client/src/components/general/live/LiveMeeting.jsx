@@ -2,11 +2,9 @@ import * as React from 'react';
 import { ZegoUIKitPrebuilt } from '@zegocloud/zego-uikit-prebuilt';
 import { useSelector } from 'react-redux';
 import ResponsiveDialog from './Dialog';
-import { useNavigate } from 'react-router-dom';
 
 export default function LiveMeeting() {
 
-   const navigate = useNavigate();
    const data = useSelector(state => state?.live)
    if (!data) return
    const { roomID, author, userID, username, participants } = data
@@ -45,7 +43,6 @@ export default function LiveMeeting() {
          },
          sharedLinks,
          showPreJoinView: false,
-         onLiveEnd:()=>navigate('/'),
          showRemoveUserButton:true
       });
    };
