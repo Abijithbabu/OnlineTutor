@@ -22,8 +22,8 @@ export default function TutorLayout({ children }) {
         <Box sx={{ display: 'flex' }}>
             <CssBaseline />
             <Navbar
-                onToggleColorMode={colorMode.toggleColorMode}
-                onTheme={colorMode.theme}
+                onToggleColorMode={colorMode?.toggleColorMode}
+                onTheme={colorMode?.theme}
                 open={open}
                 setOpen={setOpen}
             />

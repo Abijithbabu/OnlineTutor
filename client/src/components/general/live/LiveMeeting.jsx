@@ -57,7 +57,6 @@ export default function LiveMeeting() {
                },
                sharedLinks,
                showPreJoinView: false,
-               showRemoveUserButton: true
             });
          });
    };

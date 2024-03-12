@@ -117,7 +117,7 @@ const Navbar = ({ onTheme, onToggleColorMode, open, setOpen }) => {
                             </MenuItem>
                         ))}
                         <MenuItem>
-                            <ThemeButton toggleColorMode={onToggleColorMode} theme={onTheme} /> Theme
+                            <ThemeButton toggleColorMode={()=>onToggleColorMode} theme={onTheme} /> Theme
                         </MenuItem>
                     </Menu>
 

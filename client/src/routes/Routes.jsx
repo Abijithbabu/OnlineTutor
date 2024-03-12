@@ -12,7 +12,7 @@ import LiveClasses from '../pages/tutor/LiveClasses'
 import PublicProtected from './PublicProtected'
 import CourseDetails from '../pages/student/CourseDetails'
 import LiveMeeting from '../components/general/live/LiveMeeting'
-
+import CourseList from '../pages/student/CourseList'
 
 const Router = () => {
   return (
@@ -29,7 +29,7 @@ const Router = () => {
         <Route path="/joinlive" element={<LiveMeeting />} />
       </Route>
       <Route element={<UserPrivateRoute user={'Student'} />}>
-        <Route path="/courses" element={<Home />} />
+        <Route path="/courses" element={<CourseList />} />
         <Route path="/courseDetails/:id" element={<CourseDetails />} />
       </Route>
       <Route element={<UserPrivateRoute user={'Tutor'} />}>

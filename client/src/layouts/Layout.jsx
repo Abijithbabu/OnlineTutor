@@ -6,7 +6,7 @@ const Layout = ({ children }) => {
    const colorMode = useSelector(state => state?.mode)
    return (
       <>
-         <Navbar onToggleColorMode={colorMode.toggleColorMode} onTheme={colorMode.theme} />
+         <Navbar onToggleColorMode={colorMode?.toggleColorMode} onTheme={colorMode?.theme} />
          {children}
       </>
    )

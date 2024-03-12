@@ -137,7 +137,7 @@ const Navbar = ({ onToggleColorMode, onTheme }) => {
                             </Button>
                         ))}
                     </Box>
-                    <ThemeButton toggleColorMode={onToggleColorMode} theme={onTheme} />
+                    <ThemeButton toggleColorMode={()=>onToggleColorMode} theme={onTheme} />
 
                     <Box sx={{ flexGrow: 0 }}>
                         {data?.isAuthenticated ?
