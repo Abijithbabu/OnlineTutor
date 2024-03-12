@@ -2,6 +2,7 @@ import * as React from 'react';
 import { ZegoUIKitPrebuilt } from '@zegocloud/zego-uikit-prebuilt';
 import { useSelector } from 'react-redux';
 import ResponsiveDialog from './Dialog';
+import { randomID } from '../../../utils/helper';
 
 export default function LiveMeeting() {
 
@@ -28,7 +29,7 @@ export default function LiveMeeting() {
    // generate Kit Token
    const appID = parseInt(process.env.REACT_APP_APPID)
    const serverSecret = process.env.REACT_APP_SERVER_SECRET
-   const kitToken = ZegoUIKitPrebuilt.generateKitTokenForTest(appID, serverSecret, roomID, userID, username);
+   const kitToken = ZegoUIKitPrebuilt.generateKitTokenForTest(appID, serverSecret, roomID, randomID(5), username);
 
    // start the call
    let myMeeting = async (element) => {
