@@ -2,7 +2,15 @@ import * as React from 'react';
 import { ZegoUIKitPrebuilt } from '@zegocloud/zego-uikit-prebuilt';
 import { useSelector } from 'react-redux';
 import ResponsiveDialog from './Dialog';
-import { randomID } from '../../../utils/helper';
+
+function generateToken(tokenServerUrl, userID) {
+   return fetch(
+      `${tokenServerUrl}/access_token?userID=${userID}&expired_ts=7200`,
+      {
+         method: "GET",
+      }
+   ).then((res) => res.json());
+}
 
 export default function LiveMeeting() {
 
@@ -25,27 +33,33 @@ export default function LiveMeeting() {
       name: 'Share Joining link',
       url: window.location.protocol + '//' + window.location.host + '/#/live/' + roomID
    }];
-
-   // generate Kit Token
-   const appID = parseInt(process.env.REACT_APP_APPID)
-   const serverSecret = process.env.REACT_APP_SERVER_SECRET
-   const kitToken = ZegoUIKitPrebuilt.generateKitTokenForTest(appID, serverSecret, roomID, randomID(5), username);
-
+   
    // start the call
    let myMeeting = async (element) => {
-      const zp = ZegoUIKitPrebuilt.create(kitToken);
-      zp?.joinRoom({
-         container: element,
-         scenario: {
-            mode: ZegoUIKitPrebuilt.LiveStreaming,
-            config: {
-               role,
-            },
-         },
-         sharedLinks,
-         showPreJoinView: false,
-         showRemoveUserButton:true
-      });
+      generateToken("https://nextjs-token.vercel.app/api", userID).then(
+         (res) => {
+            const token = ZegoUIKitPrebuilt.generateKitTokenForProduction(
+               1484647939,
+               res.token,
+               roomID,
+               userID,
+               username
+            );
+            // create instance object from token
+            const zp = ZegoUIKitPrebuilt.create(token);
+            zp?.joinRoom({
+               container: element,
+               scenario: {
+                  mode: ZegoUIKitPrebuilt.LiveStreaming,
+                  config: {
+                     role,
+                  },
+               },
+               sharedLinks,
+               showPreJoinView: false,
+               showRemoveUserButton: true
+            });
+         });
    };
 
    return (
