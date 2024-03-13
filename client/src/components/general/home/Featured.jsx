@@ -4,7 +4,7 @@ import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import IconButton from '@mui/material/IconButton';
 import { useNavigate } from 'react-router-dom';
 
-const ContinueWacting = () => {
+const Featured = ({data}) => {
   const navigate = useNavigate()
   const backgroundImg = 'https://www.slu.edu/give/-img/cammy-fuller.jpg'
   const theme = useTheme();
@@ -24,7 +24,7 @@ const ContinueWacting = () => {
         alignItems: 'center',
         justifyContent: 'center',
       }} >
-      <Typography pb={2}> ContinueWacting </Typography>
+      <Typography pb={2}> Featured </Typography>
       <Typography pb={6} variant='h4'> mathematics formula </Typography>
       <IconButton aria-label="play/pause" sx={{ bgcolor: "primary.main", }}>
         <PlayArrowIcon sx={{ height: 38, width: 38 }} />
@@ -37,4 +37,4 @@ const ContinueWacting = () => {
   )
 }
 
-export default ContinueWacting
+export default Featured

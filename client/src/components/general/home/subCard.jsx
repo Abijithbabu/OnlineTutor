@@ -7,7 +7,7 @@ const SubCard = ({ item, index }) => {
         <Box sx={{ mr: 2 }}>
             <Box
                 sx={{
-                    backgroundImage: `linear-gradient(to bottom, transparent, #000), url(${item.backgroundImage})`,
+                    backgroundImage: `linear-gradient(to bottom, transparent, #000), url(${process.env.REACT_APP_BASE_URL}/${item.image})`,
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
                     width: '100%', // Adjusted width to fill the container

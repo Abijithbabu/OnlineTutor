@@ -25,7 +25,7 @@ const data = [
     // Add more objects as needed
 ];
 
-function AutoPlay() {
+function AutoPlay({data}) {
     const { breakpoints } = useTheme();
     const md = useMediaQuery(breakpoints.down("md"));
     const sm = useMediaQuery(breakpoints.down("sm"));

@@ -3,16 +3,16 @@ import Layout from '../../layouts/Layout'
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import queryString from "query-string";
-import { Avatar, Box, Button, Card, CardActions, CardContent, CardHeader, CardMedia, Container, Grid, IconButton, Table, TableBody, TableCell, TableRow, Tooltip, Typography } from '@mui/material';
+import { Avatar, Box, Button, Card, CardActions, CardContent, CardHeader, CardMedia, CircularProgress, Container, Grid, IconButton, Table, TableBody, TableCell, TableRow, Tooltip, Typography } from '@mui/material';
 import { Bookmarks, CopyAll, Share } from '@mui/icons-material';
-import { courseDetails } from '../../utils/api';
+import { courseDetails, subscribe } from '../../utils/api';
 import { formatTime } from '../../utils/helper';
 import { days } from '../../utils/constants';
 
 const CourseDetails = () => {
 
     const { id } = useParams();
-    const navigate = useNavigate();
+    const [loading, setLoading] = useState(false);
     const [details, setDetails] = useState();
     const data = useSelector((store) => store.data.user);
     useEffect(() => {
@@ -29,8 +29,11 @@ const CourseDetails = () => {
     }, [id]);
 
     async function handleClick() {
-        // data?._id ? await applyJob(details._id, data?._id) : navigate('/login')
-        // await getPostDetails(queryParams.id).then((res) => res && setDetails(res));
+        setLoading(true);
+        await subscribe({ user: data?._id, id })
+        await courseDetails(id).then(
+            (res) => res && setDetails(res) && setLoading(false)
+        );
     }
     const handleWhatsAppShare = (message) => {
         const whatsappLink = `https://wa.me/?text=${encodeURIComponent(message)}`;
@@ -38,7 +41,7 @@ const CourseDetails = () => {
     };
     return (
         <Layout>
-            <Container sx={{ mt: 14 }}>
+            <Container sx={{ mt: { xs: 2, md: 4 } }}>
                 <Box
                     maxWidth={9999}
                     height={150}
@@ -182,6 +185,7 @@ const CourseDetails = () => {
                                     variant="outlined"
                                     onClick={handleClick}
                                 >
+                                    {loading && <CircularProgress color="inherit" size={18} />}&nbsp;&nbsp;
                                     SUBSCRIBE NOW
                                 </Button>
                             )}

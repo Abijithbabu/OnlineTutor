@@ -48,4 +48,6 @@ export const courseDetails = errorHandler((id) => axios.get(`/tutor/courseDetail
 
 // User Api's
 
+export const getCourses = errorHandler((data) => axios.post(`/user/getCourses`,data))
+
 export const subscribe = errorHandler((data) => axios.post(`/user/subscribe`, data))
