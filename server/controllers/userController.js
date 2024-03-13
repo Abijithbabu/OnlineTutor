@@ -2,7 +2,7 @@ const User = require("../models/users");
 const Courses = require("../models/courses");
 
 const subscribe = async (req, res) => {
-    const {user,id} = req.body
+    const { user, id } = req.body
     try {
         const course = await Courses.findOne({ _id: id });
         if (course?.subscribers?.includes(user)) {
@@ -31,6 +31,41 @@ const subscribe = async (req, res) => {
     }
 };
 
+const getCourses = async (req, res) => {
+    try {
+        const { subject, type, language, search } = req?.body;
+        const query = [{ valid: true }];
+        const filter = {};
+
+        if (subject && subject.length > 0) {
+            filter.subject = { $in: subject };
+        }
+
+        if (type && type.length > 0) {
+            filter.subscription_type = { $in: type };
+        }
+
+        if (language && language.length > 0) {
+            filter.language = { $in: language };
+        }
+
+        if (search) {
+            filter.$or = [
+                { subject: { $regex: new RegExp(search, 'i') } },
+                { title: { $regex: new RegExp(search, 'i') } },
+                { subtitle: { $regex: new RegExp(search, 'i') } },
+                { language: { $regex: new RegExp(search, 'i') } },
+            ];
+        }
+
+        const courses = await Courses.find(filter).populate('author')
+        return res.json(courses);
+    } catch (error) {
+        return res.status(400).json({ message: "Something Went Wrong !" });
+    }
+};
+
 module.exports = {
-    subscribe
+    getCourses,
+    subscribe,
 };
