@@ -36,7 +36,6 @@ const Navbar = ({ onTheme, onToggleColorMode, open, setOpen }) => {
     const pathname = useLocation().pathname;
 
     const settings = [
-        { name: 'Profile', onClick: () => navigate('/profile') },
         { name: 'Logout', onClick: () => signOut(dispatch) },
     ];
 
@@ -81,7 +80,7 @@ const Navbar = ({ onTheme, onToggleColorMode, open, setOpen }) => {
                         textDecoration: 'none',
                     }}
                 >
-                    TUTOR
+                    TUTFINDER
                 </Typography>
                 <DoubleArrow />&nbsp;&nbsp;
                 <Typography fontWeight={700}>{pathname?.charAt(1).toUpperCase() + pathname?.slice(2)}</Typography>

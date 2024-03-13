@@ -10,7 +10,7 @@ import Routes from './routes/Routes';
 export const ColorModeContext = React.createContext();
 
 const App = () => {
-  const [mode, setMode] = useState(useSelector(store => store?.mode?.theme?.palette?.mode) ?? 'dark');
+  const [mode, setMode] = useState(useSelector(store => store?.mode?.theme?.palette?.mode) ?? 'light');
   const colorMode = useMemo(() => Theme({ mode, setMode }), [mode]);
   const dispatch = useDispatch({ type: 'mode', payload: colorMode })
   useEffect(() => {

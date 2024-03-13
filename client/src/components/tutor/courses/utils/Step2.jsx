@@ -12,6 +12,7 @@ import Typography from "@mui/material/Typography";
 import { days } from "../../../../utils/constants";
 import { Paper } from '@mui/material';
 import dayjs from 'dayjs';
+import { TimePicker } from '@mui/x-date-pickers';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -76,16 +77,17 @@ export default function Step2({data, dispatch }) {
 
         <Grid item xs={12} sm={8}>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DemoContainer
-              components={['SingleInputTimeRangeField']}
-            >
-              <SingleInputTimeRangeField
+
+            <DemoContainer components={['TimePicker']}>
+
+        <TimePicker
                 variant='standard'
-                label="create time slot"
-                value={[dayjs(data?.time?.[0]),dayjs(data?.time?.[2])]}
-                onChange={(newValue) => handleChange(newValue)}
-              />
-            </DemoContainer>
+
+          label="Controlled picker"
+          value={dayjs(data?.time) ?? dayjs()} 
+          onChange={(newValue) => handleChange(newValue)}
+        />
+      </DemoContainer>
           </LocalizationProvider>
         </Grid>
       </Grid>

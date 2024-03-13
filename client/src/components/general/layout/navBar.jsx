@@ -9,8 +9,7 @@ import ThemeButton from './themeButton';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { signOut } from '../../../utils/api';
-
-
+import Logo from './logo.png'
 
 const Navbar = ({ onToggleColorMode, onTheme }) => {
 
@@ -24,7 +23,6 @@ const Navbar = ({ onToggleColorMode, onTheme }) => {
         { name: 'Courses', path: '/courses' },
     ];
     const settings = [
-        { name: 'Profile', onClick: () => navigate('/profile') },
         { name: 'Logout', onClick: () => signOut(dispatch) },
     ];
 
@@ -52,7 +50,11 @@ const Navbar = ({ onToggleColorMode, onTheme }) => {
             position="static" sx={{ borderRadius: 3, marginTop: 2 }}>
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
-                    <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+                    <IconButton sx={{ backgroundColor: 'white', mr: 1,display: { xs: 'none', md: 'flex' } }}>
+
+                        <img src={Logo} height={40} borderRadius={50} />
+                    </IconButton>
+                    {/* <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} /> */}
                     <Typography
                         variant="h6"
                         noWrap
@@ -68,7 +70,7 @@ const Navbar = ({ onToggleColorMode, onTheme }) => {
                             textDecoration: 'none',
                         }}
                     >
-                        TUTOR
+                        TUTFINDER
                     </Typography>
 
                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -107,7 +109,6 @@ const Navbar = ({ onToggleColorMode, onTheme }) => {
                             ))}
                         </Menu>
                     </Box>
-                    <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
                     <Typography
                         variant="h5"
                         noWrap
@@ -124,7 +125,7 @@ const Navbar = ({ onToggleColorMode, onTheme }) => {
                             textDecoration: 'none',
                         }}
                     >
-                        LOGO
+                        TUTFINDER
                     </Typography>
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
                         {pages.map((page) => (
@@ -137,14 +138,17 @@ const Navbar = ({ onToggleColorMode, onTheme }) => {
                             </Button>
                         ))}
                     </Box>
-                    <ThemeButton toggleColorMode={()=>onToggleColorMode} theme={onTheme} />
+                    <ThemeButton toggleColorMode={onToggleColorMode} theme={onTheme} />
 
                     <Box sx={{ flexGrow: 0 }}>
                         {data?.isAuthenticated ?
-                            <>
+                            <Box sx={{ flexGrow: 0 }} marginLeft={'auto'} display={'flex'} flexDirection={'row'} alignItems={'center'}>
+
+                                    <Typography sx={{display: { xs: 'none', md: 'flex' }}} fontWeight={600}>{data?.user?.name?.charAt(0).toUpperCase() + data?.user?.name?.slice(1)}</Typography>
+                                    &nbsp;&nbsp;
                                 <Tooltip title="Open settings">
                                     <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                                        <Avatar alt={data?.user?.name} src="/static/images/avatar/2.jpg" />
+                                        <Avatar alt={data?.user?.name?.toUpperCase()} src="/static/images/avatar/2.jpg" />
                                     </IconButton>
                                 </Tooltip>
                                 <Menu
@@ -168,9 +172,9 @@ const Navbar = ({ onToggleColorMode, onTheme }) => {
                                             <Typography textAlign="center">{x.name}</Typography>
                                         </MenuItem>
                                     ))}
-                                </Menu>
-                            </>
-                            : <Button onClick={() => navigate('/login')}>Login</Button>}
+                                </Menu> 
+                            </Box>
+                            : <Button variant='contained' onClick={() => navigate('/login')}>Login</Button>}
                     </Box>
                 </Toolbar>
             </Container>

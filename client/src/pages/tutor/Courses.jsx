@@ -9,7 +9,6 @@ const Courses = () => {
   const user = useSelector((state) => state?.data?.user);
   const initialState = {
     author: user?._id,
-    time: ['2022-04-17T15:30', '2022-04-17T18:30'],
     availableDays: [2,3,4,5,6],
   };
   const [data, setData] = useState([]);

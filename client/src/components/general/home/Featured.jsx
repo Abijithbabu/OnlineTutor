@@ -10,9 +10,9 @@ const Featured = ({data}) => {
   const theme = useTheme();
   return (
     <Box
-      onClick={()=>navigate('/live')}
+      onClick={()=>navigate(`/courseDetails/${data[0]?._id}`)}
       sx={{
-        backgroundImage: `linear-gradient(to left, transparent, ${theme.palette.secondary.main}), url(${backgroundImg})`,
+        backgroundImage: `linear-gradient(to left, transparent, ${theme.palette.secondary.main}), url(${process.env.REACT_APP_BASE_URL}/${data[0]?.image})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         // width: 200, 
@@ -25,13 +25,12 @@ const Featured = ({data}) => {
         justifyContent: 'center',
       }} >
       <Typography pb={2}> Featured </Typography>
-      <Typography pb={6} variant='h4'> mathematics formula </Typography>
+      <Typography pb={6} variant='h4'>{data[0]?.title}</Typography>
       <IconButton aria-label="play/pause" sx={{ bgcolor: "primary.main", }}>
         <PlayArrowIcon sx={{ height: 38, width: 38 }} />
       </IconButton>
       <Typography variant="body2" color="text.secondary" pt={2} >
-        Lizards are a widespread group of squamate reptiles, with over 6,000<br />
-        species, ranging across all continents except Antarctica
+        {data[0]?.description}
       </Typography>
     </Box >
   )

@@ -51,3 +51,5 @@ export const courseDetails = errorHandler((id) => axios.get(`/tutor/courseDetail
 export const getCourses = errorHandler((data) => axios.post(`/user/getCourses`,data))
 
 export const subscribe = errorHandler((data) => axios.post(`/user/subscribe`, data))
+
+export const bookmark = errorHandler((data) => axios.post(`/user/bookmark`, data))

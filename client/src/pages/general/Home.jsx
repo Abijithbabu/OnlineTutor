@@ -24,7 +24,7 @@ const Home = () => {
         }
     }, []);
     return (
-        <Container>
+        <Container sx={{overflow:'hidden'}}>
             <Layout>
                 <Grid container spacing={2} >
                     <Grid item xs={12} md={8}>
@@ -38,9 +38,6 @@ const Home = () => {
                     <Grid item xs={12}>
                         <Box><AutoPlay data={data} /></Box>
                     </Grid>
-                    {/* <Grid item xs={8}>
-                    <Box sx={{ bgcolor: "primary.main", mt: 2 }}>xs=8</Box>
-                </Grid> */}
                 </Grid>
             </Layout>
         </Container>

@@ -43,7 +43,7 @@ export default function CourseList() {
     !filterCount && setFilters({})
   }, [filterCount])
   return (
-    <>
+    <Container>
       <Layout>
         <FiliterContainer>
           <SearchAppBar filterCount={filterCount} search={search} apply={setSearch} removeFilter={setCount} />
@@ -59,6 +59,6 @@ export default function CourseList() {
           </Grid>
         </FiliterContainer>
       </Layout>
-    </>
+    </Container>
   );
 }

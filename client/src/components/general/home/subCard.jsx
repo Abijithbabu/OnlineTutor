@@ -1,13 +1,18 @@
 import React from 'react';
-import { Box, Typography, IconButton } from '@mui/material';
+import { Box, Typography, IconButton, useTheme } from '@mui/material';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
+import { useNavigate } from 'react-router-dom';
 
 const SubCard = ({ item, index }) => {
+    const theme = useTheme()
+    const gradient = theme?.palette?.mode === 'dark' ? '#000' :'#d3d3d3'
+    const navigate = useNavigate()
     return (
         <Box sx={{ mr: 2 }}>
             <Box
+                onClick={() => navigate(`/courseDetails/${item?._id}`)}
                 sx={{
-                    backgroundImage: `linear-gradient(to bottom, transparent, #000), url(${process.env.REACT_APP_BASE_URL}/${item.image})`,
+                    backgroundImage: `linear-gradient(to bottom, transparent, ${gradient}), url(${process.env.REACT_APP_BASE_URL}/${item.image})`,
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
                     width: '100%', // Adjusted width to fill the container
@@ -27,7 +32,7 @@ const SubCard = ({ item, index }) => {
                 <Typography pt={0} variant="h6">
                     {item.title}
                 </Typography>
-                <Typography sx={{fontSize:'11.5px',fontWeight:'light'}} variant="body2" color="text.secondary" pt={1}>
+                <Typography sx={{ fontSize: '11.5px', fontWeight: 'light' }} variant="body2" color="text.secondary" pt={1}>
                     {item.description}
                 </Typography>
             </Box>

@@ -13,8 +13,7 @@ import { useNavigate } from "react-router";
 import styled from "@emotion/styled";
 import { motion } from "framer-motion";
 import { useSelector } from "react-redux";
-import axios from "axios";
-import { getCourses } from "../../../utils/api";
+import { bookmark, getCourses } from "../../../utils/api";
 const container = {
   hidden: { opacity: 1, scale: 0 },
   visible: {
@@ -49,7 +48,7 @@ const H1 = styled(Typography)({
   color: "#000",
   paddingLeft: "1px",
   paddingTop: "1px",
-  fontSize: "14px",
+  fontSize: "13px",
   fontWeight: "600",
   lineHeight: "normal",
 });
@@ -102,12 +101,11 @@ export default function Cards({ filter }) {
     } catch (error) {
       console.log(error.message);
     }
-  }, [filter]);
+  }, [filter,checked]);
 
-  const bookmark = async (id) => {
-    await axios.patch(`http://localhost:5000/api/bookmark?id=${id}&user=${user._id}`).then(() => setChecked(false))
+  const handleBookmark = async (id) => {
+    await bookmark({ id, user: user._id }).then(() => setChecked(prev => !prev))
   }
-
   return (
     <ThemeProvider theme={defaultTheme}>
       <CssBaseline />
@@ -163,7 +161,6 @@ export default function Cards({ filter }) {
 
                         sx={{
                           flexGrow: 1,
-                          cursor: "pointer",
                           px: 0
                         }}
                       >
@@ -184,9 +181,9 @@ export default function Cards({ filter }) {
                                 <IconButton
                                   sx={{ pt: 0, paddingRight: 0 }}
                                   aria-label="add to favorites"
-                                  onClick={() => bookmark(card._id)}
+                                  onClick={() => handleBookmark(card._id)}
                                 >
-                                  {checked ? (
+                                  {card?.likes?.includes(user._id) ? (
                                     <BookmarkIcon fontSize="small" />
                                   ) : (
                                     <BookmarkBorderIcon fontSize="small" />
@@ -197,37 +194,19 @@ export default function Cards({ filter }) {
                             <H3 variant="body2" component="poppins">
                               {card.roles}
                             </H3>
-
                           </>
                         )}
                       </CardContent>
-                      {/* <CardActions
-                        sx={{
-                          display: "flex",
-                          justifyContent: "space-between",
-                        }}
-                      >
-                        {!loading && (
-                          <div>
-                            <IconButton
-                              aria-label="add to favorites"
-                              onClick={() => setChecked(!checked)}
-                            >
-                              {checked ? (
-                                <BookmarkIcon fontSize="small" />
-                              ) : (
-                                <BookmarkBorderIcon fontSize="small" />
-                              )}
-                            </IconButton>
-                          </div>
-                        )}
-                      </CardActions> */}
                     </motion.div>
                   </MachingCard>
                 </Grid>
               ))}
-
             </Grid>
+            {!data?.length &&
+              <Grid pt={12} item xs={12} display={'flex'} justifyContent={'center'} >
+                <Typography>Oops! no results found, try clearing filters</Typography>
+              </Grid>
+            }
           </Container>
         </motion.div>
       </main>

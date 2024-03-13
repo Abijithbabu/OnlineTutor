@@ -5,6 +5,7 @@ import {
   Alert,
   Box,
   Button,
+  CircularProgress,
   FormHelperText,
   Stack,
   Tab,
@@ -19,6 +20,7 @@ import { login } from "../../utils/api";
 const Login = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const [loading, setLoading] = useState(false)
   const [method, setMethod] = useState("email");
   const formik = useFormik({
     initialValues: {
@@ -35,10 +37,12 @@ const Login = () => {
     }),
     onSubmit: async (values, helpers) => {
       try {
+        setLoading(true)
         const auth = await login(values);
-        console.log(auth?.user?.type );
+        console.log(auth?.user?.type);
         auth &&
           dispatch({ type: "user_login", payload: auth }) && navigate("/dashboard")
+        setLoading(false)
       } catch (err) {
         helpers.setStatus({ success: false });
         helpers.setErrors({ submit: err.message });
@@ -115,16 +119,7 @@ const Login = () => {
                   {formik.errors.submit}
                 </Typography>
               )}
-              <Typography sx={{ mt: 3 }} color="text.secondary" variant="body2">
-                Forgot your Password ? &nbsp;
-                <Link
-                  to="/resetPassword"
-                  style={{ textDecoration: "none", color: "#1976D2" }}
-                  className="link"
-                >
-                  Reset Password
-                </Link>
-              </Typography>
+
               <Button
                 fullWidth
                 size="large"
@@ -132,6 +127,7 @@ const Login = () => {
                 type="submit"
                 variant="contained"
               >
+                {loading && <CircularProgress color="inherit" size={18} />}&nbsp;&nbsp;
                 Continue
               </Button>
               <Button
@@ -145,13 +141,12 @@ const Login = () => {
 
               <Alert color="primary" severity="info" sx={{ mt: 3 }}>
                 <div>
-                  You can use <b>demo@tutor.io</b> and password{" "}
-                  <b>password123!</b>
+                  You can use <b>sample@gmail.com</b> and password{" "}
+                  <b>qwerty !</b>
                 </div>
               </Alert>
             </form>
           )}
-          {/* {method === "phoneNumber" && <MobileLogin />} */}
         </div>
       </Box>
     </Box>

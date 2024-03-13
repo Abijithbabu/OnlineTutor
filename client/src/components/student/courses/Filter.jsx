@@ -67,7 +67,25 @@ function Filter({ filter, apply }) {
                     {filterMenu.map((item) => (
                         <Box key={item.id} >
                             <H1>{item.title}</H1>
-                            <List sx={{ width: "100%", mt: 0, mb: 2 }} size="small" style={{ maxHeight: "calc(220px - 10px)", overflowY: item.id == 4 ? "none" : 'scroll' }}>
+                            <List
+                                sx={{
+                                    width: "100%",
+                                    mt: 0,
+                                    mb: 2,
+                                    maxHeight: "calc(220px - 10px)",
+                                    overflowY: item.id === 2 ? "none" : 'scroll',
+                                    // overflow: 'auto',
+                                    '&::-webkit-scrollbar': {
+                                        width: '0.2rem',
+                                        '&-thumb': {
+                                            backgroundColor: 'primary.main',
+                                            width: '0.1rem',
+                                            borderRadius: '1rem',
+                                        },
+                                    },
+                                }}
+                                size="small"
+                            >
                                 {item.elements.map((element, index) => (
                                     <ListItem key={index} value={element} sx={{
                                         padding: "0px",
@@ -90,7 +108,7 @@ function Filter({ filter, apply }) {
                         </Box>
                     ))}
                 </FiliterCard>
-            </Hidden>
+            </Hidden >
             <Hidden mdUp implementation="css">
                 <MobileFilter filters={filterMenu} selectedFilters={selectedFilters} dispatch={handleCheckboxChange} />
             </Hidden>

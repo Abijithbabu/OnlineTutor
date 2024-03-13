@@ -27,13 +27,13 @@ export const filterMenu = [
     ],
   },
   {
-    id: 4,
+    id: 2,
     title: "Course Type",
     name:'type',
     elements: ['Paid', 'Free','Not Applicable'],
   },
   {
-    id: 5,
+    id: 3,
     title: 'Medium / Language',
     name:'language',
     elements: [

@@ -5,17 +5,17 @@ import AssestCard from "./AssestCard";
 
 const data = [
     {
-        title: 'Offline Access',
-        description: 'Enable users to download course content for offline viewing.'
+        title: 'Online Access',
+        description: 'Enable users to continue course content from anywhere.'
+    }, {
+        title: 'Personalize Courses',
+        description: 'Browse and find the perfect course for your studies.'
     }, {
         title: 'Individual Attention',
         description: 'Online tuition provides personalized attention to each student.'
     }, {
-        title: 'Individual Attention',
-        description: 'Online tuition provides personalized attention to each student.'
-    }, {
-        title: 'Individual Attention',
-        description: 'Online tuition provides personalized attention to each student.'
+        title: 'Paid and Free courses',
+        description: 'Access millions of courses both of paid and free subscriptions.'
     }
 ]
 const container = {
@@ -34,7 +34,7 @@ const Assests = () => (
     <motion.ul variants={container} initial="hidden" animate="visible" >
         <Grid container spacing={2} >
             {data.map((data, index) => (<Grid item xs={6} >
-                <Paper key={index} sx={{ height: '11.6vw', width: '12vw' }} variants={item} component={motion.div}><AssestCard data={data}/></Paper>
+                <Paper key={index} variants={item} component={motion.div}><AssestCard data={data}/></Paper>
             </Grid> ))}
         </Grid>
     </motion.ul>
