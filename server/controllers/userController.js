@@ -65,7 +65,37 @@ const getCourses = async (req, res) => {
     }
 };
 
+const bookmark = async (req, res) => {
+    const { user, id } = req.body
+    try {
+        const course = await Courses.findOne({ _id: id });
+        if (course?.likes?.includes(user)) {
+            await User.updateOne(
+                { _id: user },
+                { $pull: { bookmarks: id } }
+            )
+            await Courses.updateOne(
+                { _id: id },
+                { $pull: { likes: user } }
+            )
+            return res.status(200).json({ message: "bookmark removed" });
+        } else {
+            await User.updateOne(
+                { _id: user },
+                { $addToSet: { bookmarks: id } }
+            )
+            await Courses.updateOne(
+                { _id: id },
+                { $addToSet: { likes: user } }
+            )
+            return res.status(200).json({ message: "bookmard added" });
+        }
+    } catch (error) {
+        return new Error(error);
+    }
+};
 module.exports = {
     getCourses,
     subscribe,
+    bookmark
 };

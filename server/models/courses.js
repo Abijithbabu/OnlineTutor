@@ -39,7 +39,7 @@ const courseSchema = new Schema({
         required: true 
       },
     time: {
-        type: Array,
+        type: Date,
     },
     subscription_type: {
         type: String,

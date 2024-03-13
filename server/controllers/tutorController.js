@@ -20,9 +20,7 @@ const courseDetails = async (req, res) => {
   };
 
 const createCourse = async (req, res) => {
-    const { ...data } = req.body;
-    const timeArray = data?.time?.split(',')
-    
+    const { ...data } = req.body;    
     try {
         if (!req.file) { 
             return res.status(499).json({ message: "Image is required" });
@@ -32,7 +30,6 @@ const createCourse = async (req, res) => {
             ...data,
             image: filepath,
             availableDays:data?.availableDays?.split(','),
-            time:[timeArray[0] + ',' + timeArray[1], timeArray[2] + ',' + timeArray[3]]
         });
         await course.save();
         if (!course) { 
@@ -51,9 +48,7 @@ const editCourse = async (req, res) => {
     const { ...data } = req.body;
     delete data.subscribers
     delete data.likes
-    const timeArray = data?.time?.split(',')
     data.availableDays = data?.availableDays?.split(',')
-    data.time = [timeArray[0] + ',' + timeArray[1], timeArray[2] + ',' + timeArray[3]]
     try {
       if (req.file) {
         const filepath = req.file.path.replace(/\\/g, "/").slice(7);
