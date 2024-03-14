@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import TutorLayout from '../../layouts/TutorLayout';
 import { useSelector } from 'react-redux';
 import { fetchCourses } from '../../utils/api';
-import { Button, Card, CardActions, CardContent, CardMedia, Grid, IconButton, Stack, Tooltip, Typography, styled } from '@mui/material';
+import { Button, Card, CardActions, CardContent, CardMedia, CircularProgress, Grid, IconButton, Stack, Tooltip, Typography, styled } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { CopyAll, Share } from '@mui/icons-material';
 
@@ -77,8 +77,8 @@ const LiveClasses = () => {
               </Card>
             </Grid>
           )) : (
-            <p>Loading...</p>
-          )}
+            <p><CircularProgress color="inherit" size={18} />&nbsp;&nbsp;Loading...</p>
+            )}
       </Grid>
     </TutorLayout>
   );

@@ -4,6 +4,7 @@ import CourseList from '../../components/tutor/courses/CourseList';
 import CourseCreate from '../../components/tutor/courses/CourseEdit';
 import { useSelector } from 'react-redux';
 import { fetchCourses } from '../../utils/api';
+import { CircularProgress } from '@mui/material';
 
 const Courses = () => {
   const user = useSelector((state) => state?.data?.user);
@@ -55,7 +56,7 @@ const Courses = () => {
           />
         )
       ) : (
-        <p>Loading...</p>
+        <p><CircularProgress color="inherit" size={18} />&nbsp;&nbsp;Loading...</p>
       )}
     </TutorLayout>
   );

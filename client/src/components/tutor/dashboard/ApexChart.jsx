@@ -1,21 +1,32 @@
+import { useMediaQuery, useTheme } from '@mui/material';
 import React from 'react';
 import ReactApexChart from 'react-apexcharts';
 
-export function ApexChart({data}) {
-  const values = data.map(x=>{
+export function ApexChart({ data, type }) {
+  const theme = useTheme();
+  const sm = useMediaQuery(theme.breakpoints.up('sm'));
+  const md = useMediaQuery(theme.breakpoints.up('md'));
+  const lg = useMediaQuery(theme.breakpoints.up('lg'));
+  const values = data.map(x => {
     return new Date(x.createdAt).getMonth() + 1
   })
   const countArray = Array.from({ length: 8 }, (_, index) => {
     const count = values.filter(value => value === index + 1).length;
     return count;
   });
-  
-  // Fill vacant spaces with 0
+  const yAxis = []
+  const xAxis = []
+  data.map(x => {
+    yAxis.push(x.title)
+    xAxis.push(x.subscribers?.length)
+  })
+
   const result = countArray.map(count => (count !== undefined ? count : 1));
+  const categories = type === 'line' ? ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug"] : yAxis
   const series = [
     {
       name: 'Inflation',
-      data: result
+      data: type === 'line' ? result : xAxis
     }
   ];
 
@@ -44,7 +55,7 @@ export function ApexChart({data}) {
       }
     },
     xaxis: {
-      categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug"],
+      categories,
       position: 'top',
       axisBorder: {
         show: false
@@ -83,7 +94,7 @@ export function ApexChart({data}) {
       }
     },
     title: {
-      text: 'courses published this year, 2023',
+      text: type === 'line' ? 'courses published this year, 2023' : 'subscribers gained per course',
       floating: true,
       offsetY: 330,
       align: 'center',
@@ -95,7 +106,7 @@ export function ApexChart({data}) {
 
   return (
     <div id="chart">
-      <ReactApexChart options={options} series={series} type="bar" height={350} />
+      <ReactApexChart options={options} series={series} type={type} width={type === 'line' ? sm ? md ? lg ? 350 : 250 : 550 : 350 : sm ? lg ? 700 : 550 : 350} height={350} />
     </div>
   )
 }
