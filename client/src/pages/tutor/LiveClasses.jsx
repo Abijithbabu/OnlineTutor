@@ -3,14 +3,13 @@ import TutorLayout from '../../layouts/TutorLayout';
 import { useSelector } from 'react-redux';
 import { fetchCourses } from '../../utils/api';
 import { Button, Card, CardActions, CardContent, CardMedia, CircularProgress, Grid, IconButton, Stack, Tooltip, Typography, styled } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
 import { CopyAll, Share } from '@mui/icons-material';
 
 const LiveClasses = () => {
   const user = useSelector((state) => state?.data?.user);
   const [data, setData] = useState([]);
   const [isDataLoaded, setIsDataLoaded] = useState(false);
-  const navigate = useNavigate()
+
   useEffect(() => {
     user && fetchData();
   }, [user]);
@@ -78,7 +77,7 @@ const LiveClasses = () => {
             </Grid>
           )) : (
             <p><CircularProgress color="inherit" size={18} />&nbsp;&nbsp;Loading...</p>
-            )}
+          )}
       </Grid>
     </TutorLayout>
   );

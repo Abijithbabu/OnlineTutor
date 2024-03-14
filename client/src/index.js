@@ -7,11 +7,13 @@ import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
 import { store } from './redux/store';
 import { ReactNotifications } from 'react-notifications-component';
+import { Notifications } from 'react-push-notification';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <Provider store={store}>
+      <Notifications />
       <ReactNotifications />
       <App />
     </Provider>

@@ -2,6 +2,7 @@ import * as React from 'react';
 import { ZegoUIKitPrebuilt } from '@zegocloud/zego-uikit-prebuilt';
 import { useSelector } from 'react-redux';
 import ResponsiveDialog from './Dialog';
+import { sendNotification } from '../../../utils/api';
 
 function generateToken(tokenServerUrl, userID) {
    return fetch(
@@ -33,7 +34,7 @@ export default function LiveMeeting() {
       name: 'Share Joining link',
       url: window.location.protocol + '//' + window.location.host + '/#/live/' + roomID
    }];
-   
+
    // start the call
    let myMeeting = async (element) => {
       generateToken("https://nextjs-token.vercel.app/api", userID).then(
@@ -57,6 +58,7 @@ export default function LiveMeeting() {
                },
                sharedLinks,
                showPreJoinView: false,
+               onLiveStart: () => sendNotification(roomID)
             });
          });
    };

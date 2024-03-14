@@ -6,10 +6,12 @@ import { motion } from 'framer-motion';
 import { HashRouter } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import Routes from './routes/Routes';
+import useNotification from './hooks/useNotification';
 
 export const ColorModeContext = React.createContext();
 
 const App = () => {
+  useNotification ()
   const [mode, setMode] = useState(useSelector(store => store?.mode?.theme?.palette?.mode) ?? 'light');
   const colorMode = useMemo(() => Theme({ mode, setMode }), [mode]);
   const dispatch = useDispatch({ type: 'mode', payload: colorMode })

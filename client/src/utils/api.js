@@ -45,6 +45,8 @@ export const fetchCourses = errorHandler((id) => axios.get(`/tutor/fetchCourses?
 
 export const courseDetails = errorHandler((id) => axios.get(`/tutor/courseDetails?id=${id}`))
 
+export const sendNotification = errorHandler((id) => axios.get(`/notification/send-notification?id=${id}`))
+
 
 // User Api's
 
