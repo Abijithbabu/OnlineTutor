@@ -17,7 +17,7 @@ const urlBase64ToUint8Array = base64String => {
 
 const saveSubscription = async (subscription) => {
     const data = { subscription, id: user?._id }
-    const response = await fetch('http://localhost:5000/notification/save-subscription', {
+    const response = await fetch(`https://onlinetutor-server.onrender.com/notification/save-subscription`, {
         method: 'post',
         headers: { 'Content-type': "application/json" },
         body: JSON.stringify(data)
