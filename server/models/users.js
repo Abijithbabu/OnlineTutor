@@ -38,6 +38,9 @@ const userSchema = new Schema({
     profilePic: {
         type: String,
     },
+    push_notification: {
+        type: Object,
+    },
     bookmarks: [
         {
             type: mongoose.Schema.Types.ObjectId,
