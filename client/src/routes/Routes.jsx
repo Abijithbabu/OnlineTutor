@@ -13,6 +13,7 @@ import PublicProtected from './PublicProtected'
 import CourseDetails from '../pages/student/CourseDetails'
 import LiveMeeting from '../components/general/live/LiveMeeting'
 import CourseList from '../pages/student/CourseList'
+import Profile from '../pages/tutor/Profile'
 
 const Router = () => {
   return (
@@ -35,6 +36,7 @@ const Router = () => {
       <Route element={<UserPrivateRoute user={'Tutor'} />}>
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/myCourses" element={<Courses />} />
+        <Route path="/profile" element={<Profile />} />
         <Route path="/liveClasses" element={<LiveClasses />} />
       </Route>
     </Routes>

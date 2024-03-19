@@ -47,6 +47,8 @@ export const courseDetails = errorHandler((id) => axios.get(`/tutor/courseDetail
 
 export const sendNotification = errorHandler((id) => axios.get(`/notification/send-notification?id=${id}`))
 
+export const updateProfile = errorHandler((data) => axios.post(`/tutor/updateProfile`, data))
+
 
 // User Api's
 
