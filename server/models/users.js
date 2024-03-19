@@ -29,13 +29,19 @@ const userSchema = new Schema({
         default: "Student",
     },
     subscriptions: [
-    {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Courses",
-        required: true,
-    }
-],
-    profilePic: {
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Courses",
+            required: true,
+        }
+    ],
+    institution: {
+        type: String,
+    },
+    bio: {
+        type: String,
+    },
+    image: {
         type: String,
     },
     push_notification: {
@@ -49,9 +55,9 @@ const userSchema = new Schema({
         }
     ]
 },
-{
-    timestamps: true,
-});
+    {
+        timestamps: true,
+    });
 // Encrypt password using bcrypt
 userSchema.pre("save", async function (next) {
     if (!this.isModified("password")) {

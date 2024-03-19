@@ -77,9 +77,34 @@ const editCourse = async (req, res) => {
     }
   };
   
+  const updateProfile = async (req, res) => {
+    const { ...data } = req.body;    
+    try {
+      if (req.file) {
+        const filepath = req.file.path.replace(/\\/g, "/").slice(7);
+        data.image = filepath 
+      }
+        const user = await User.updateOne(
+          { _id: data._id },
+          { $set: data },
+          { upsert: true, new: true }
+        )
+        console.log(user);
+        if (!user) { 
+            return res.status(400).json({ message: "Something Went Wrong !" });
+        }
+        return res
+            .status(200)
+            .json({ message: "Updated Successfully !" });
+    } catch (error) {
+        console.log(error.message);
+        return new Error(error);
+    }
+};
 module.exports = {
     createCourse,
     getCourses,
     editCourse,
-    courseDetails
+    courseDetails,
+    updateProfile
 };
