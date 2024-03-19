@@ -95,7 +95,7 @@ const editCourse = async (req, res) => {
         }
         return res
             .status(200)
-            .json({ message: "Updated Successfully !" });
+            .json({data, message: "Updated Successfully !" });
     } catch (error) {
         console.log(error.message);
         return new Error(error);
