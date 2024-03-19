@@ -37,7 +37,7 @@ const sendNotification = async (req, res) => {
         const data = {
             title: 'Livestream had Started !',
             text: `${course.author.name} has just started class on "${course.title}".Don't miss the class join ASAP!`,
-            image: `${process.env.BASE_URL}/${course.image}`,
+            image: `https://onlinetutor-server.onrender.com/${course.image}`,
             url: `${process.env.BASE_URL}/#/live/${course._id}`,
         }
         const users = await User.find({ type: 'Student' })
