@@ -26,18 +26,20 @@ const saveSubscription = async (subscription) => {
     return response.json()
 }
 
-self.addEventListener("activate", async (e) => {
+const activate = async (user) => {
     try {
-        const subscription = await self.registration.pushManager.subscribe({
-            userVisibleOnly: true,
-            applicationServerKey: urlBase64ToUint8Array("BKXDJ3DYbMrOvqxKkd4I0P5Nn9RfP4GEFl3DI_4EkFE1re1bbZ6-sGVWi5oKFI74ReywZM7cEynR65SftiQN9fs")
-        })
-        const response = await saveSubscription(subscription)
-        console.log(response)
+        if (user) {
+            const subscription = await self.registration.pushManager.subscribe({
+                userVisibleOnly: true,
+                applicationServerKey: urlBase64ToUint8Array("BKXDJ3DYbMrOvqxKkd4I0P5Nn9RfP4GEFl3DI_4EkFE1re1bbZ6-sGVWi5oKFI74ReywZM7cEynR65SftiQN9fs")
+            })
+            const response = await saveSubscription(subscription)
+            console.log(response)
+        }
     } catch (error) {
         console.log(error);
     }
-})
+}
 
 self.addEventListener("push", e => {
     const data = e.data.json();
@@ -49,7 +51,7 @@ self.addEventListener("push", e => {
         actions: [
             { action: 'open_url', title: 'JOIN NOW' }
         ],
-        url
+        data
     };
     self.registration.showNotification(title, options);
 })
@@ -57,13 +59,14 @@ self.addEventListener("push", e => {
 self.addEventListener('message', event => {
     if (event?.data && event.data?.type === 'userDetails') {
         user = event?.data?.userDetails;
+        activate(user)
     }
 });
 
 self.addEventListener('notificationclick', event => {
     const action = event?.action;
     if (action === 'open_url') {
-        const url = event?.notification?.url;
+        const url = event?.notification?.data?.url;
         event.waitUntil(
             clients.openWindow(url)
         );

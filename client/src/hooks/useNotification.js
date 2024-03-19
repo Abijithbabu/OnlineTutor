@@ -5,20 +5,8 @@ const useNotification = () => {
     const user = useSelector(state => state.data.user)
     useEffect(() => {
         main()
-    })
-    useEffect(() => {
-        navigator.serviceWorker.ready
-            .then(registration => {
-                registration.active.postMessage({
-                    type: 'userDetails',
-                    userDetails: user
-                });
-            })
-            .catch(error => {
-                console.error('Service worker registration failed:', error);
-            });
-
     }, [user]);
+
     const checkPermission = async () => {
         if (!('serviceWorker' in navigator)) {
             throw new Error('No support for service worker!');
@@ -47,9 +35,22 @@ const useNotification = () => {
 
     const main = async () => {
         try {
-            await checkPermission();
-            await requestNotificationPermission();
-            await registerSW();
+            if (user?._id) {
+                await checkPermission();
+                await requestNotificationPermission();
+                await registerSW();
+                navigator.serviceWorker.ready
+                    .then(registration => {
+                        console.log(registration, user);
+                        registration.active.postMessage({
+                            type: 'userDetails',
+                            userDetails: user
+                        });
+                    })
+                    .catch(error => {
+                        console.error('Service worker registration failed:', error);
+                    });
+            }
         } catch (error) {
             console.error('Error:', error.message);
         }

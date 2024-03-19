@@ -21,7 +21,7 @@ const Dashboard = () => {
   const theme = useTheme();
   const sm = useMediaQuery(theme.breakpoints.up('md'));
   const obj = { revenue: 0, courses: 0, subscribers: 0 }
-  data.map(x => {
+  data?.map(x => {
     obj.courses++
     obj.subscribers += x.subscribers.length
     if (x.subscription_type === 'Paid') {
@@ -31,7 +31,7 @@ const Dashboard = () => {
 
   const fetchData = async () => {
     await fetchCourses(user?._id).then((res) => {
-      setData(res);
+      res && setData(res);
       setIsDataLoaded(true);
     });
   };

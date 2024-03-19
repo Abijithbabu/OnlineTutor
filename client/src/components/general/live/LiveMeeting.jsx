@@ -51,14 +51,14 @@ export default function LiveMeeting() {
             zp?.joinRoom({
                container: element,
                scenario: {
-                  mode: ZegoUIKitPrebuilt.LiveStreaming,
+                  mode: ZegoUIKitPrebuilt.VideoConference,
                   config: {
                      role,
                   },
                },
                sharedLinks,
                showPreJoinView: false,
-               onLiveStart: () => sendNotification(roomID)
+               onJoinRoom: () => userID === author && sendNotification(roomID)
             });
          });
    };
