@@ -22,8 +22,8 @@ export const NavItems = [
     )
   },
   {
-    title: 'Applicants',
-    path: '/manageApplicants',
+    title: 'Profile',
+    path: '/profile',
     icon: (
       <SvgIcon fontSize="small">
         <CoPresentRounded />

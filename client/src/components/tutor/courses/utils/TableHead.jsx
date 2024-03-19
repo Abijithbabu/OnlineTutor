@@ -8,29 +8,29 @@ import Checkbox from "@mui/material/Checkbox";
 import { visuallyHidden } from "@mui/utils";
 
 const headCells = [
-  // {
-  //   id: "packageCode",
-  //   label: "Package Code",
-  // },
+  {
+    id: "courseImage",
+    label: "Course Cover Photo",
+  },
   {
     id: "title",
-    label: "Title",
+    label: "Course Title",
   },
   {
     id: "description",
-    label: "Description",
+    label: "Course Description",
   },
   {
-    id: "price",
-    label: "Price",
+    id: "subject",
+    label: "Subject",
   },
   {
-    id: "availableSlots",
-    label: "Available Slots",
+    id: "medium",
+    label: "Course Medium",
   },
   {
-    id: "validity",
-    label: "Validity",
+    id: "subscription",
+    label: "Subscription type",
   },
   {
     id: "Edit",

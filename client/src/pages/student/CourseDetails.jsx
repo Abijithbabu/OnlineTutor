@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import Layout from '../../layouts/Layout'
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import queryString from "query-string";
-import { Avatar, Box, Button, Card, CardActions, CardContent, CardHeader, CardMedia, CircularProgress, Container, Grid, IconButton, Table, TableBody, TableCell, TableRow, Tooltip, Typography } from '@mui/material';
-import { Bookmarks, CopyAll, Share } from '@mui/icons-material';
+import { Avatar, Box, Button, Card, CardActions, CardContent, CardHeader, CardMedia, CircularProgress, Container, Grid, IconButton, Table, TableBody, TableCell, TableRow, Tooltip, Typography, useTheme } from '@mui/material';
+import { CopyAll, Share } from '@mui/icons-material';
 import { courseDetails, subscribe } from '../../utils/api';
 import { formatTime } from '../../utils/helper';
 import { days } from '../../utils/constants';
@@ -14,7 +13,49 @@ const CourseDetails = () => {
    const { id } = useParams();
    const [loading, setLoading] = useState(false);
    const [details, setDetails] = useState();
-   const data = useSelector((store) => store.data.user);
+   const data = useSelector((store) => store?.data?.user)
+   const theme = useTheme()
+
+   React.useEffect(() => {
+      const script = document.createElement("script");
+      script.src = "https://checkout.razorpay.com/v1/checkout.js";
+      script.async = true;
+      document.body.appendChild(script);
+      return () => {
+         document.body.removeChild(script);
+      };
+   }, []);
+   const handleClick = () => {
+
+      const options = {
+         key: 'rzp_test_wNhVz81BFxrIrL',
+         amount: parseInt(details?.amount) * 100, // amount in paisa
+         currency: 'INR',
+         name: 'TUT FINDER',
+         description: 'Purchase course',
+         handler: function (response) {
+            handlePaymentSuccess()
+         },
+         prefill: {
+            email: data?.email,
+         },
+         theme: {
+            color: theme?.palette?.mode === 'light' ? '#a31545' : '#000',
+         },
+         image: 'apple-touch-icon.png'
+      };
+
+      const rzp = new window.Razorpay(options);
+      details?.subscription_type === 'Paid' ? rzp.open() : handlePaymentSuccess()
+   };
+
+   const handlePaymentSuccess = async () => {
+      setLoading(true);
+      await subscribe({ user: data?._id, id })
+      await courseDetails(id).then(
+         (res) => res && setDetails(res) && setLoading(false)
+      );
+   };
    useEffect(() => {
       try {
          const fetchData = async () => {
@@ -28,13 +69,6 @@ const CourseDetails = () => {
       }
    }, [id]);
 
-   async function handleClick() {
-      setLoading(true);
-      await subscribe({ user: data?._id, id })
-      await courseDetails(id).then(
-         (res) => res && setDetails(res) && setLoading(false)
-      );
-   }
    const handleWhatsAppShare = (message) => {
       const whatsappLink = `https://wa.me/?text=${encodeURIComponent(message)}`;
       window.open(whatsappLink, '_blank');

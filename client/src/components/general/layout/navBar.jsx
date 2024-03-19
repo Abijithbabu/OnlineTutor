@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { signOut } from '../../../utils/api';
 import Logo from './logo.png'
+import { Logout } from '@mui/icons-material';
 
 const Navbar = ({ onToggleColorMode, onTheme }) => {
 
@@ -23,7 +24,7 @@ const Navbar = ({ onToggleColorMode, onTheme }) => {
         { name: 'Courses', path: '/courses' },
     ];
     const settings = [
-        { name: 'Logout', onClick: () => signOut(dispatch) },
+        { name: 'Logout', onClick: () => signOut(dispatch), icon: <Logout /> },
     ];
 
     const handleOpenNavMenu = (event) => {
@@ -50,11 +51,10 @@ const Navbar = ({ onToggleColorMode, onTheme }) => {
             position="static" sx={{ borderRadius: 3, marginTop: 2 }}>
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
-                    <IconButton sx={{ backgroundColor: 'white', mr: 1,display: { xs: 'none', md: 'flex' } }}>
+                    <IconButton sx={{ backgroundColor: 'white', mr: 1, display: { xs: 'none', md: 'flex' } }}>
 
                         <img src={Logo} height={40} borderRadius={50} />
                     </IconButton>
-                    {/* <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} /> */}
                     <Typography
                         variant="h6"
                         noWrap
@@ -138,14 +138,12 @@ const Navbar = ({ onToggleColorMode, onTheme }) => {
                             </Button>
                         ))}
                     </Box>
-                    <ThemeButton toggleColorMode={onToggleColorMode} theme={onTheme} />
-
                     <Box sx={{ flexGrow: 0 }}>
                         {data?.isAuthenticated ?
                             <Box sx={{ flexGrow: 0 }} marginLeft={'auto'} display={'flex'} flexDirection={'row'} alignItems={'center'}>
 
-                                    <Typography sx={{display: { xs: 'none', md: 'flex' }}} fontWeight={600}>{data?.user?.name?.charAt(0).toUpperCase() + data?.user?.name?.slice(1)}</Typography>
-                                    &nbsp;&nbsp;
+                                <Typography sx={{ display: { xs: 'none', md: 'flex' } }} fontWeight={600}>{data?.user?.name?.charAt(0).toUpperCase() + data?.user?.name?.slice(1)}</Typography>
+                                &nbsp;&nbsp;
                                 <Tooltip title="Open settings">
                                     <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                                         <Avatar alt={data?.user?.name?.toUpperCase()} src="/static/images/avatar/2.jpg" />
@@ -169,10 +167,15 @@ const Navbar = ({ onToggleColorMode, onTheme }) => {
                                 >
                                     {settings.map((x) => (
                                         <MenuItem key={x.name} onClick={() => x.onClick()}>
-                                            <Typography textAlign="center">{x.name}</Typography>
+                                            <Button style={{ color: onTheme?.palette.mode === 'dark' ? 'white' : '#a31545' }}>
+                                                {x.icon}&nbsp;&nbsp;{x.name}
+                                            </Button>
                                         </MenuItem>
                                     ))}
-                                </Menu> 
+                                    <MenuItem>
+                                        <ThemeButton toggleColorMode={onToggleColorMode} theme={onTheme} />
+                                    </MenuItem>
+                                </Menu>
                             </Box>
                             : <Button variant='contained' onClick={() => navigate('/login')}>Login</Button>}
                     </Box>

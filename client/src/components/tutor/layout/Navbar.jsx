@@ -1,13 +1,13 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { signOut } from '../../../utils/api';
-import { Avatar, Box, IconButton, Menu, MenuItem, Toolbar, Tooltip, Typography, styled } from '@mui/material';
+import { Avatar, Box, Button, IconButton, Menu, MenuItem, Toolbar, Tooltip, Typography, styled } from '@mui/material';
 import MuiAppBar from '@mui/material/AppBar';
 
 import Adb from '@mui/icons-material/Adb';
 import ThemeButton from '../../general/layout/themeButton';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Apps, DoubleArrow } from '@mui/icons-material';
+import { Apps, CoPresentRounded, DoubleArrow, Logout } from '@mui/icons-material';
 
 const drawerWidth = 240;
 const AppBar = styled(MuiAppBar, {
@@ -36,7 +36,8 @@ const Navbar = ({ onTheme, onToggleColorMode, open, setOpen }) => {
     const pathname = useLocation().pathname;
 
     const settings = [
-        { name: 'Logout', onClick: () => signOut(dispatch) },
+        { name: 'Profile', onClick: () => navigate('/profile'),icon:<CoPresentRounded/> },
+        { name: 'Logout', onClick: () => signOut(dispatch),icon:<Logout/> },
     ];
 
     const handleOpenUserMenu = (event) => {
@@ -112,11 +113,13 @@ const Navbar = ({ onTheme, onToggleColorMode, open, setOpen }) => {
                     >
                         {settings.map((x) => (
                             <MenuItem key={x.name} onClick={() => x.onClick()}>
-                                <Typography textAlign="center">{x.name}</Typography>
+                                <Button style={{color:onTheme?.palette.mode === 'dark' ?'white':'#a31545'}}>
+                                {x.icon}&nbsp;&nbsp;{x.name}
+                                </Button>
                             </MenuItem>
                         ))}
                         <MenuItem>
-                            <ThemeButton toggleColorMode={()=>onToggleColorMode} theme={onTheme} /> Theme
+                            <ThemeButton toggleColorMode={onToggleColorMode} theme={onTheme} />
                         </MenuItem>
                     </Menu>
 

@@ -159,10 +159,10 @@ export default function CourseList({ data, setMode, dispatch }) {
                     </TableCell>
                     <TableCell align="left">{row.title}</TableCell>
                     <TableCell align="left">{row.description}</TableCell>
-                    <TableCell align="left">{row.subject}</TableCell>
-                    <TableCell align="left">{row.duration}</TableCell>
-                    <TableCell align="left">{row.subscription_type}</TableCell>
-                    <TableCell align="left">
+                    <TableCell align="center">{row.subject}</TableCell>
+                    <TableCell align="center">{row.language}</TableCell>
+                    <TableCell align="center">{row.subscription_type}</TableCell>
+                    <TableCell align="center">
                       <Button color="info" onClick={() => {
                         dispatch(row)
                         setMode("edit")
