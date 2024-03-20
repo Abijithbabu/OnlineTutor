@@ -23,6 +23,7 @@ const SubCard = ({ item, index }) => {
                     alignItems: 'center',
                     justifyContent: 'center',
                     marginRight: '100px',
+                    overflow:'hidden'
                 }}
             >
                 <Typography pb={5}></Typography>

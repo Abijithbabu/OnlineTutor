@@ -23,7 +23,7 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-export default function Step2({data, dispatch }) {
+export default function Step2({ data, dispatch }) {
 
   const handleChange = (time) => dispatch((prev) => ({ ...prev, time }))
 
@@ -77,17 +77,14 @@ export default function Step2({data, dispatch }) {
 
         <Grid item xs={12} sm={8}>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
-
             <DemoContainer components={['TimePicker']}>
-
-        <TimePicker
+              <TimePicker
                 variant='standard'
-
-          label="Controlled picker"
-          value={dayjs(data?.time) ?? dayjs()} 
-          onChange={(newValue) => handleChange(newValue)}
-        />
-      </DemoContainer>
+                label="Class Time"
+                value={dayjs(data?.time) ?? dayjs()}
+                onChange={(newValue) => handleChange(newValue)}
+              />
+            </DemoContainer>
           </LocalizationProvider>
         </Grid>
       </Grid>

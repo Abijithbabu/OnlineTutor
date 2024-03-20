@@ -79,13 +79,26 @@ const CourseDetails = () => {
             <Container sx={{ mt: { xs: 2, md: 4 } }}>
                <Box
                   maxWidth={9999}
-                  height={150}
+                  height={230}
                   sx={{
-                     background: `url(${process.env.REACT_APP_BASE_URL}/${details?.image} ), lightgray 50% / cover no-repeat`,
+                     background: `url(${process.env.REACT_APP_BASE_URL}/${details?.author?.image} ), lightgray 50% / cover no-repeat`,
                      borderRadius: "4px",
                   }}
+                  display={'flex'}
                >
-                  <Typography></Typography>
+                  <Typography
+                     variant='h4'
+                     sx={{
+                        m: 'auto', p: 2, borderRadius: "8px",
+                        background: `linear-gradient(to left, transparent, ${theme.palette.secondary.main})`,
+                        fontFamily: 'monospace',
+                        fontWeight: 800,
+                        letterSpacing: '.3rem',
+                        color: 'inherit',
+                        textDecoration: 'none',
+                     }}>
+                     {details?.author?.institution?.toUpperCase()}
+                  </Typography>
                </Box>
                <Grid container spacing={0}>
                   <Grid item xs={12} md={4} marginTop={2}>
@@ -136,11 +149,11 @@ const CourseDetails = () => {
                               }
 
                               title={details?.author?.name}
-                              subheader="course author"
+                              subheader="Institution head"
                            />
                            <CardContent>
                               <Typography variant="body2" color="text.secondary">
-                                 {details?.description}
+                                 {details?.author?.bio}
                               </Typography>
                            </CardContent>
                         </Card>
@@ -170,14 +183,19 @@ const CourseDetails = () => {
                                        <TableCell align="left">: &nbsp;&nbsp; {details?.subject}</TableCell>
                                     </TableRow>
                                     <TableRow sx={{ "& > *": { borderBottom: "unset" } }}>
-                                       <TableCell>Language</TableCell>
+                                       <TableCell>Institution name</TableCell>
                                        <TableCell component="th" scope="row" />
-                                       <TableCell align="left">: &nbsp;&nbsp; {details?.language}</TableCell>
+                                       <TableCell align="left">: &nbsp;&nbsp; {details?.author?.institution}</TableCell>
                                     </TableRow>
                                     <TableRow sx={{ "& > *": { borderBottom: "unset" } }}>
-                                       <TableCell>Course Duration</TableCell>
+                                       <TableCell>Faculty</TableCell>
                                        <TableCell component="th" scope="row" />
-                                       <TableCell align="left">: &nbsp;&nbsp; {details?.duration} days</TableCell>
+                                       <TableCell align="left">: &nbsp;&nbsp; {details?.tutor}</TableCell>
+                                    </TableRow>
+                                    <TableRow sx={{ "& > *": { borderBottom: "unset" } }}>
+                                       <TableCell>Language / Medium</TableCell>
+                                       <TableCell component="th" scope="row" />
+                                       <TableCell align="left">: &nbsp;&nbsp; {details?.language}</TableCell>
                                     </TableRow>
                                     <TableRow sx={{ "& > *": { borderBottom: "unset" } }}>
                                        <TableCell> Class Timing</TableCell>

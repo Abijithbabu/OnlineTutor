@@ -173,9 +173,11 @@ export default function Cards({ filter }) {
                           <>
                             <Grid container>
                               <Grid item xs={10} md={10} sm={10} lg={10}>
-                                <H1>Topic:{card.title}</H1>
-                                <H1>subject:{card.subject}</H1>
-
+                                <H1>{card.title} / {card.subject}</H1>
+                                <H1>by {card.tutor}</H1>
+                                <H1>{card?.authorDetails?.[0]?.institution
+}</H1>
+{console.log(card)}
                               </Grid>
                               <Grid item xs={2} md={2} sm={2} lg={2}>
                                 <IconButton

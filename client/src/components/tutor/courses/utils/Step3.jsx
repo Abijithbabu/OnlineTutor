@@ -47,23 +47,20 @@ const Step3 = ({ data, dispatch }) => {
             />
           </Grid>
           <Grid item xs={12} sm={6}>
-            <FormControl fullWidth sx={{ m: 1 }} variant="standard">
-              <InputLabel htmlFor="demo-simple-select-label">Course Duration</InputLabel>
-              <Input
-                id="duration"
-                name="duration"
-                type="number"
-                onChange={handleChange}
-                value={data?.duration ?? ''}
-                label="duration"
-                fullWidth
-                endAdornment={<InputAdornment position="start">Days</InputAdornment>}
-                variant="standard"
-              />
-            </FormControl>
+            <TextField
+              sx={{ my: 1 }}
+              required
+              id="tutor"
+              name="tutor"
+              onChange={handleChange}
+              value={data?.tutor ?? ""}
+              label="Teacher"
+              fullWidth
+              variant="standard"
+            />
           </Grid>
           <Grid item xs={12} sm={6}>
-            <FormControl fullWidth sx={{ m: 1 }} variant="standard">
+            <FormControl fullWidth sx={{ my: 1 }} variant="standard">
               <InputLabel id="demo-simple-select-label">Subscription Type</InputLabel>
               <Select
                 labelId="demo-simple-select-label"
@@ -79,7 +76,7 @@ const Step3 = ({ data, dispatch }) => {
             </FormControl>
           </Grid>
           <Grid item xs={12} sm={6}>
-            <FormControl fullWidth sx={{ m: 1 }} variant="standard">
+            <FormControl fullWidth sx={{ my: 1 }} variant="standard">
               <InputLabel htmlFor="standard-adornment-amount">Amount</InputLabel>
               <Input
                 type="number"

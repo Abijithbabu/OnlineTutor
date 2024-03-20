@@ -1,9 +1,9 @@
 import { CloudUpload } from '@mui/icons-material';
-import { Box, Button } from '@mui/material'
+import { Box, Button, Typography, useTheme } from '@mui/material'
 import React from 'react'
 
 const Banner = ({ data, dispatch }) => {
-
+  const theme = useTheme()
   const image = typeof (data?.image) == 'object' ? URL.createObjectURL(data?.image) : `${process.env.REACT_APP_BASE_URL}/${data?.image}`
   const fileInputRef = React.useRef(null);
   const handleFileSelect = () => {
@@ -17,7 +17,7 @@ const Banner = ({ data, dispatch }) => {
   return (
     <Box
       maxWidth={9999}
-      height={250}
+      height={230}
       display={'flex'}
       sx={{
         cursor: "pointer",
@@ -26,7 +26,20 @@ const Banner = ({ data, dispatch }) => {
       }}
       onClick={handleFileSelect}
     >
-      <Button variant='contained' sx={{ p: 3, m: 2.5, ml: 'auto', maxHeight: 30 }}>
+      <Typography
+        variant='h4'
+        sx={{
+          m: 'auto', p: 2, borderRadius: "8px",
+          background: `linear-gradient(to left, transparent, ${theme.palette.secondary.main})`,
+          fontFamily: 'monospace',
+          fontWeight: 800,
+          letterSpacing: '.3rem',
+          color: 'inherit',
+          textDecoration: 'none',
+        }}>
+        {data?.institution?.toUpperCase()}
+      </Typography>
+      <Button variant='contained' sx={{ p: 3, m: 2.5, mr: 'auto', maxHeight: 30, position: 'absolute' }}>
         <CloudUpload />
         &nbsp;&nbsp;Upload Image
       </Button>
