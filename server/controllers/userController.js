@@ -55,10 +55,23 @@ const getCourses = async (req, res) => {
                 { title: { $regex: new RegExp(search, 'i') } },
                 { subtitle: { $regex: new RegExp(search, 'i') } },
                 { language: { $regex: new RegExp(search, 'i') } },
+                { tutor: { $regex: new RegExp(search, 'i') } },
+                { 'authorDetails.institution': { $regex: new RegExp(search, 'i') } }
             ];
         }
-
-        const courses = await Courses.find(filter).populate('author')
+        const courses = await Courses.aggregate([
+            {
+                $lookup: {
+                    from: 'users',
+                    localField: 'author',
+                    foreignField: '_id',
+                    as: 'authorDetails'
+                }
+            },
+            {
+                $match: filter
+            }
+        ]);
         return res.json(courses);
     } catch (error) {
         return res.status(400).json({ message: "Something Went Wrong !" });

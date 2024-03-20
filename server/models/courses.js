@@ -30,7 +30,7 @@ const courseSchema = new Schema({
         type: String,
         required: true,
     },
-    duration: {
+    tutor: {
         type: String,
         required: true,
     },
