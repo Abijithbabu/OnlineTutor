@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import TutorLayout from '../../layouts/TutorLayout'
 import Banner from '../../components/tutor/profile/Banner'
-import { Button, CircularProgress, Container, IconButton, Stack } from '@mui/material'
+import { Button, CircularProgress, Container, Stack } from '@mui/material'
 import About from '../../components/tutor/profile/About'
 import { useDispatch, useSelector } from 'react-redux'
 import { updateProfile } from '../../utils/api'
@@ -16,7 +16,7 @@ const Profile = () => {
       email: user.email,
       institution: user.institution ?? 'Educational Institution',
       image: user?.image,
-      bio: `Joined TuT Finder on ${new Date(user.createdAt).toDateString()}.`,
+      bio: user?.bio ?? `Joined TuT Finder on ${new Date(user.createdAt).toDateString()}.`,
    };
    const [data, setData] = useState(intialState);
 
