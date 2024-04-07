@@ -5,6 +5,7 @@ const socket = require("socket.io");
 const authRouter = require('./routes/authRoutes')
 const tutorRouter = require('./routes/tutorRoutes')
 const userRouter = require('./routes/userRoutes')
+const adminRouter = require('./routes/adminRoutes')
 const notificationRouter = require('./routes/notificationRoutes')
 const cookieParser = require('cookie-parser')
 const path = require('path')
@@ -24,6 +25,7 @@ app.use(express.urlencoded({ extended: false }))
 app.use('/auth', authRouter)
 app.use('/user', userRouter)
 app.use('/tutor', tutorRouter)
+app.use('/admin', adminRouter)
 app.use('/notification',notificationRouter )
 
 mongoose.connect(process.env.MONGODB_URL, {

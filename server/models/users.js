@@ -25,7 +25,7 @@ const userSchema = new Schema({
     type: {
         type: String,
         required: true,
-        enum: ["Tutor", "Student"],
+        enum: ["Tutor", "Student","Admin"],
         default: "Student",
     },
     subscriptions: [
