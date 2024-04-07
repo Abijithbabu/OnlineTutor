@@ -14,6 +14,10 @@ import CourseDetails from '../pages/student/CourseDetails'
 import LiveMeeting from '../components/general/live/LiveMeeting'
 import CourseList from '../pages/student/CourseList'
 import Profile from '../pages/tutor/Profile'
+import AdminDashboard from '../pages/admin/Dashboard'
+import Teacher from '../pages/admin/Teacher'
+import Students from '../pages/admin/Students'
+import ManageCourse from '../pages/admin/ManageCourse'
 
 const Router = () => {
   return (
@@ -38,6 +42,12 @@ const Router = () => {
         <Route path="/myCourses" element={<Courses />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/liveClasses" element={<LiveClasses />} />
+      </Route>
+      <Route element={<UserPrivateRoute user={'Admin'} />}>
+        <Route path="/admin" element={<AdminDashboard />} />
+        <Route path="/manage-org" element={<Teacher />} />
+        <Route path="/manage-students" element={<Students />} />
+        <Route path="/manage-courses" element={<ManageCourse />} />
       </Route>
     </Routes>
   )

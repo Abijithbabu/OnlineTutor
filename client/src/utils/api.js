@@ -57,3 +57,8 @@ export const getCourses = errorHandler((data) => axios.post(`/user/getCourses`,d
 export const subscribe = errorHandler((data) => axios.post(`/user/subscribe`, data))
 
 export const bookmark = errorHandler((data) => axios.post(`/user/bookmark`, data))
+
+// Admin Api's
+
+export const getUsers = errorHandler(({type,search})=>axios.get(`/admin/users/${type}?search=${search}`))
+export const getCourse = errorHandler((search)=>axios.get(`/admin/courses?search=${search}`))
