@@ -53,7 +53,11 @@ const userSchema = new Schema({
             ref: "Courses",
             required: true,
         }
-    ]
+    ],
+    status:{
+        type:Boolean,
+        default:false
+    }
 },
     {
         timestamps: true,

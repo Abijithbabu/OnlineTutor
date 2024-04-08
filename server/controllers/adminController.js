@@ -56,7 +56,27 @@ const getUsers = async (req, res) => {
     }
 };
 
+const blockUser = async (req, res) => {
+    try {
+        const id = req?.params?.id
+        if (!id) {
+            return res.status(403).json({ message: "Request credentials missing !" });
+        }
+        const user = await User.findById(id);
+        if (!user) {
+            return res.status(404).json({ message: "User not found !" });
+        }
+
+        user.status = !user.status;
+        await user.save();
+        return res.json(user);
+    } catch (error) {
+        return res.status(400).json({ message: "Something Went Wrong !" });
+    }
+};
+
 module.exports = {
     getUsers,
     getCourses,
+    blockUser
 };

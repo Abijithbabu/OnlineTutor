@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 require("dotenv").config();
 let otp;
 const sendOtp = async (req, res) => {
-//   otp = OTP.sendMessage(parseInt(req.body.phone), res);
+  //   otp = OTP.sendMessage(parseInt(req.body.phone), res);
   return res.status(200).json({ code: otp });
 };
 
@@ -60,7 +60,9 @@ const login = async (req, res) => {
       .status(400)
       .json({ message: "Incorrect password ! please recheck your password" });
   }
-
+  if (existingUser.status) {
+    return res.status(403).json({ blocked: true, message: "Account Suspended by Administrator !" });
+  }
   const token = jwt.sign({ id: existingUser._id }, process.env.JWT_SECRET, {
     expiresIn: 860000,
   });

@@ -9,7 +9,8 @@ const adminRouter = require('./routes/adminRoutes')
 const notificationRouter = require('./routes/notificationRoutes')
 const cookieParser = require('cookie-parser')
 const path = require('path')
-const cors = require('cors')
+const cors = require('cors');
+const verifyStatus = require('./middlewares/verifyStatus');
 dotenv.config()
 const app = express()
 app.use(cors({
@@ -22,11 +23,12 @@ app.use(express.urlencoded({ extended: true }))
 app.use(express.static(path.join(__dirname, ('./public'))))
 app.use(express.urlencoded({ extended: false }))
 
+app.use(verifyStatus)
 app.use('/auth', authRouter)
 app.use('/user', userRouter)
 app.use('/tutor', tutorRouter)
 app.use('/admin', adminRouter)
-app.use('/notification',notificationRouter )
+app.use('/notification', notificationRouter)
 
 mongoose.connect(process.env.MONGODB_URL, {
   useNewUrlParser: true,
