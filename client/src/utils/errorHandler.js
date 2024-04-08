@@ -3,9 +3,13 @@ import notify from "./notification"
 const errorHandler = (controller) => async (data) => {
     try {
         const res = await controller(data)
+        const message = res?.data?.message
         if (res?.data) {
-            const message = res?.data?.message
-            message && notify({ message : message })
+            if (res?.data?.blocked) {
+                notify({ message, title: 'Account Suspended', type: 'warning' })
+                return
+            }
+            message && notify({ message: message })
             return res.data
         }
     } catch (error) {

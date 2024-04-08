@@ -11,7 +11,7 @@ import Tooltip from '@mui/material/Tooltip';
 import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
 import RefreshIcon from '@mui/icons-material/Refresh';
-import { getUsers } from '../../utils/api';
+import { blockUser, getUsers } from '../../utils/api';
 import DataTable from '../../components/admin/DataTable';
 
 const Students = () => {
@@ -30,6 +30,11 @@ const Students = () => {
    React.useEffect(() => {
       fetchData()
    }, [])
+
+   const handleBlock = async (id) => {
+      setLoading(true)
+      await blockUser(id).then(res => fetchData())
+   }
    const rows = ['name', 'email', 'phone']
    return (
       <AdminLayout>
@@ -76,7 +81,7 @@ const Students = () => {
                   Loading ...
                </Typography> :
                data?.length ?
-                  <DataTable data={data} rows={rows} /> :
+                  <DataTable data={data} rows={rows} handleBlock={handleBlock}/> :
                   <Typography sx={{ my: 5, mx: 2 }} color="text.secondary" align="center">
                      No users for this search result
                   </Typography>}
